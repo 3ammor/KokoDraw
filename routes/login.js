@@ -12,7 +12,14 @@ router.post('/sign_up', function(req, res) {
     xusername = req.body.username;
     xfullname = req.body.fullname;
     xemail = req.body.email;
-    xpassword = passwordHash.generate(req.body.password);
+    opassword = req.body.password;
+
+    if(opassword.length < 8) {
+        res.session.error = 'Username already exists.';
+        res.redirect('/login');
+    }
+
+    xpassword = passwordHash.generate(opassword);
 
     exports.models.User.create({
         name: xusername,
