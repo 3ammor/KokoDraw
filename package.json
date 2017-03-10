@@ -6,15 +6,19 @@
     "start": "nodejs ./bin/www"
   },
   "dependencies": {
-    "express": "~4.14.1",
-    "serve-favicon": "~2.4.1",
-    "morgan": "~1.7.0",
-    "cookie-parser": "~1.4.3",
     "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
+    "express": "~4.14.1",
     "hjs": "~0.0.6",
+    "morgan": "~1.7.0",
     "mysql": "^2.13.0",
     "sequelize": "^3.30.2",
+    "sequelize-cli": "^2.5.1",
+    "serve-favicon": "~2.4.1",
     "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^2.5.1"
   }
 }
