@@ -5,24 +5,32 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/login');
-var users = require('./routes/users');
-
 var app = express();
+
+//===============EXPRESS================
+// Configure Engines
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
+//===============EXPRESS================
+// Configure Express
+
 app.use(favicon());
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+//===============EXPRESS================
+// Configure Links to routes
+
+var login = require('./routes/login');
+var join = require('./routes/join');
+
+app.use('/', login);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
