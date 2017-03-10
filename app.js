@@ -33,7 +33,7 @@ var rooms = require('./routes/room');
 
 app.use('/', login);
 app.use('/login', login);
-// app.use('/join', join);
+app.use('/join', join);
 app.use('/rooms', rooms);
 
 /// catch 404 and forwarding to error handler
