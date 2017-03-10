@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('static-favicon');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -17,22 +17,22 @@ app.set('view engine', 'hjs');
 //===============EXPRESS================
 // Configure Express
 
-app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //===============EXPRESS================
-// Configure Links to routes
+// Configure links to routes
 
 var login = require('./routes/login');
 var join = require('./routes/join');
 var rooms = require('./routes/room');
 
 app.use('/', login);
-app.use('/join' join);
+// app.use('/join', join);
 app.use('/rooms', rooms);
 
 /// catch 404 and forwarding to error handler
