@@ -29,8 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var login = require('./routes/login');
 var join = require('./routes/join');
+var rooms = require('./routes/room');
 
 app.use('/', login);
+app.use('/join' join);
+app.use('/rooms', rooms);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
