@@ -1,0 +1,20 @@
+{
+  "name": "kokodraw",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodejs ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.14.1",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.7.0",
+    "cookie-parser": "~1.4.3",
+    "body-parser": "~1.17.1",
+    "debug": "~2.6.0",
+    "hjs": "~0.0.6",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.2",
+    "socket.io": "^1.7.3"
+  }
+}
