@@ -64,11 +64,11 @@
                     </div><!-- form-group -->
                     <div class="form-group">
                         <label for="password">Password </label>
-                        <input type="password" name="password" value="" class="form-control" placeholder="Enter the password here.." required>
+                        <input type="password" name="password" minlength="8" class="form-control" placeholder="Enter the password here.." required>
                     </div><!-- form-group -->
                     <div class="form-group">
                         <label for="confirm_password">Confirm Password </label>
-                        <input type="password" name="confirm_password" value="" class="form-control" placeholder="Renter your password here.." required>
+                        <input type="password" name="confirm_password" minlength="8" class="form-control" placeholder="Renter your password here.." required>
                     </div><!-- form-group -->
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
