@@ -6,10 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var paper = require('paper');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var rooms = require('./routes/room');
-var routes = require('./routes/login');
 
 var app = express();
 //creating server and connecting socket with server
