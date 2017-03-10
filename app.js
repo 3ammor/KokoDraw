@@ -32,6 +32,7 @@ var join = require('./routes/join');
 var rooms = require('./routes/room');
 
 app.use('/', login);
+app.use('/login', login);
 // app.use('/join', join);
 app.use('/rooms', rooms);
 
