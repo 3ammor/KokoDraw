@@ -12,7 +12,21 @@ var express = require("express"),
    double_p = require('double_p.js');
 
 
+var app = express();
+var server = app.listen(3000);
 
+
+app.get('/', function(req, res){
+    res.sendfile(__dirname + '/views/join.ejs');
+});
+
+app.get('/draw/*', function(req, res){
+    res.sendfile(__dirname + '/views/room.ejs');
+});
+
+
+var io = socket.listen(server);
+io.sockets.setMaxListeners(0);
 
 io.sockets.on('connection', function (socket) {
     socket.on('disconnect', function () {
