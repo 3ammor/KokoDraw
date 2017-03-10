@@ -50,6 +50,9 @@ io.sockets.on('connection', function (socket) {
         draw.draw_end(room, point, id);
     });
 
+    socket.on('join', function (room) {
+        join(socket,room);
+    });
 
 
 });
