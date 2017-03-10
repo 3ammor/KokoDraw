@@ -34,6 +34,7 @@
                     <div class="form-group">
                         <label for="username">Username </label>
                         <input type="text" name="username" value="" class="form-control" placeholder="Enter the username here.." autofocus required>
+                        <span class="error text-danger">{{ req.flash('error') }}</span>
                     </div><!-- form-group -->
 
                     <div class="form-group">
@@ -53,6 +54,7 @@
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" name="username" value="" class="form-control" placeholder="Enter your username to login with.." autofocus required>
+                        <span class="error text-danger">{{ req.flash('error') }}</span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
