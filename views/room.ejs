@@ -5,6 +5,17 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/drawing.js"></script>
 <body>
-    <canvas id="myCanvas" width="1000" height="600"></canvas>
+<canvas id="myCanvas"></canvas>
+<button type="button" onclick="changeColor(0, 0, 0)">BLACK</button>
+<button type="button" onclick="changeColor(1, 0, 0)">RED</button>
+<button type="button" onclick="changeColor(0, 1, 0)">GREEN</button>
+<button type="button" onclick="changeColor(0, 0, 1)">BLUE</button>
+<button type="button" onclick="changeColor(1, 1, 0)">YELLOW</button>
+<button type="button" onclick="changeColor(1, 0, 1)">MAGENTA</button>
+<button type="button" onclick="changeColor(0, 1, 1)">CYAN</button>
+<button type="button" onclick="changeColor(1, 1, 1)">ERASER</button>
+<button type="button" onclick="changeMyTool('Path')">Path</button>
+<button type="button" onclick="changeMyTool('Circle')">Circle</button>
+<button type="button" onclick="changeMyTool('Rect')">Square</button>
 </body>
 </html>
