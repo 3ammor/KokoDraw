@@ -6,16 +6,20 @@
     "start": "nodejs ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.17.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.0",
-    "express": "^4.15.2",
-    "hjs": "~0.0.6",
+    "express": "~4.15.2",
     "morgan": "~1.7.0",
+    "cookie-parser": "~1.4.3",
+    "body-parser": "~1.17.1",
+    "debug": "~2.6.0",
+    "hjs": "~0.0.6",
     "mysql": "^2.13.0",
     "paper": "~0.10.3",
     "sequelize": "^3.30.2",
-    "socket.io": "^1.7.3",
-    "static-favicon": "~1.0.0"
+    "sequelize-cli": "^2.5.1",
+    "serve-favicon": "~2.4.1",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^2.5.1"
   }
 }
