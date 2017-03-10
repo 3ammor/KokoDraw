@@ -1,21 +1,30 @@
 var express = require('express');
 var router = express();
-
-//Here we are configuring express to use body-parser as middle-ware.
-/* GET home page. */
 exports.models = require('../models/index');
+var passwordHash = require('password-hash');
 
 router.get('/', function(req, res) {
   res.render('login', { title: 'Hey apple!' });
 });
 
-router.post('/sign_in', function(req, res) {
-    models.User.create({
-        name: req.body.username,
-        fullname: req.body.fullname,
-        email: req.body.email,
-        password: req.body.password
-    });
+router.post('/sign_up', function(req, res) {
+
+    xusername = req.body.username;
+    xfullname = req.body.fullname;
+    xemail = req.body.email;
+    xpassword = passwordHash.generate(req.body.password);
+
+    exports.models.User.create({
+        name: xusername,
+        fullname: xfullname,
+        email: xemail,
+        password: xpassword
+    }).then(function (result) {
+        res.json(result);
+    }).catch(function(err) {
+        console.log("Username already exists.");
+     });
+
 });
 
 

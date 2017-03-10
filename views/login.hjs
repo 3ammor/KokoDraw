@@ -48,7 +48,7 @@
             </div><!-- col-md-4 -->
             <div class="col-md-4">
 
-                <form class="form-signin" action='' method="POST">
+                <form class="form-signin" action='sign_up' method="POST">
                     <h2 class="form-signin-heading">Sign Up</h2>
                     <div class="form-group">
                         <label for="username">Username</label>
