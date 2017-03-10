@@ -51,13 +51,25 @@
                 <form class="form-signin" action='' method="POST">
                     <h2 class="form-signin-heading">Sign Up</h2>
                     <div class="form-group">
-                        <label for="username">Username</label><i class="fa fa-asterisk"></i>
+                        <label for="username">Username</label>
                         <input type="text" name="username" value="" class="form-control" placeholder="Enter your username to login with.." autofocus required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label><i class="fa fa-asterisk"></i>
+                        <label for="email">Email</label>
                         <input type="email" name="email" value="" class="form-control" placeholder="email@email.com" required>
                     </div>
+                    <div class="form-group">
+                        <label for="fullname">Full Name </label>
+                        <input type="text" name="fullname" value="" class="form-control" placeholder="Enter your full name here.." required>
+                    </div><!-- form-group -->
+                    <div class="form-group">
+                        <label for="password">Password </label>
+                        <input type="password" name="password" value="" class="form-control" placeholder="Enter the password here.." required>
+                    </div><!-- form-group -->
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password </label>
+                        <input type="password" name="confirm_password" value="" class="form-control" placeholder="Renter your password here.." required>
+                    </div><!-- form-group -->
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
