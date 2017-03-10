@@ -4,8 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var paper = require('paper');
+
 
 var app = express();
+//creating server and connecting socket with server
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 //===============EXPRESS================
 // Configure Engines
@@ -66,6 +71,9 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+// server listen
+server.listen(3000);
 
 
 module.exports = app;
