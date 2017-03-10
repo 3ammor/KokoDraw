@@ -1,4 +1,4 @@
-// Database creation.
+// Database creation
 var Sequelize = require('sequelize')
     , sequelize = new Sequelize('mysql://root:0000@localhost:3306/kokodraw');
 
