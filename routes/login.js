@@ -3,20 +3,28 @@ var router = express();
 exports.models = require('../models/index');
 var passwordHash = require('password-hash');
 
-router.get('/', function(req, res) {
-  res.render('login', { title: 'Hey apple!' });
+router.get('/', function (req, res) {
+    res.render('login',{ error1: req.flash('error1'), error2: req.flash('error2'), error3: req.flash('error3') });
 });
 
-router.post('/sign_up', function(req, res) {
+router.post('/sign_up', function (req, res) {
 
     xusername = req.body.username;
     xfullname = req.body.fullname;
     xemail = req.body.email;
     opassword = req.body.password;
 
-    if(opassword.length < 8) {
-        res.session.error = 'Username already exists.';
-        res.redirect('/login');
+    var english = /^[A-Za-z ']*$/;
+    if (!english.test(xfullname)) {
+        req.flash('error3', 'Name must contain only english letters.');
+        res.redirect('/');
+        return;
+    }
+
+    if (opassword.length < 8) {
+        req.flash('error2', 'Password must be at least 8 characters long.');
+        res.redirect('/');
+        return;
     }
 
     xpassword = passwordHash.generate(opassword);
@@ -28,12 +36,12 @@ router.post('/sign_up', function(req, res) {
         password: xpassword
     }).then(function (result) {
         res.json(result);
-    }).catch(function(err) {
-        console.log("Username already exists.");
-     });
+    }).catch(function (err) {
+        req.flash('error1', 'Username already exists.');
+        res.redirect('/');
+    });
 
 });
-
 
 
 module.exports = router;

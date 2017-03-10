@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
                 Room.belongsToMany(models.User, {
                     through: "UserRoom",
-                  onDelete: "CASCADE",
-                  foreignKey: {
+                    onDelete: "CASCADE",
+                    foreignKey: {
                       allowNull: false
                   }
               });
