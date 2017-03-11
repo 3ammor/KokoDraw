@@ -53,8 +53,11 @@ socket.on('join:load_page', function (json) {
 });
 
 window.onload = function () {
-    document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.96);
-    document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.92);
+    document.getElementById("chat_height").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
+    document.getElementById("row_canvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
+
+    // document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.96);
+    // document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.92);
     paper.setup('myCanvas');
 
 
