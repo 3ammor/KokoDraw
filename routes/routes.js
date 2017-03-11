@@ -1,6 +1,7 @@
 module.exports = function (app, passport) {
     require('../config/passport');
     var bcrypt = require('bcrypt');
+    var passwordHash = require('password-hash');
     var models = require('../models/index');
 
 // normal routes ===============================================================
@@ -16,7 +17,7 @@ module.exports = function (app, passport) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/join', function (req, res) {
+    app.get('/join', isLoggedIn, function (req, res) {
         res.render('join');
     });
 
@@ -29,18 +30,15 @@ module.exports = function (app, passport) {
 
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
-        
+        var now = new Date();
+        req.session['token'] = passwordHash.generate(now.getTime().toString());
+        res.redirect('/rooms/');
     });
-
     // Room =====================================
-    app.get('/rooms/:id', isLoggedIn, function (req, res) {
-        models.UserRoom.findOne({
-            where: {
-                UserId: req.user.id,
-                RoomId: req.params.id
-            }.then(function (room) {
-
-            })
+    app.get('/rooms', isLoggedIn, function (req, res) {
+        if(req.session['token'] != null)
+            res.render('room',{userid: req.user.id, token: req.session['token']});
+        else res.redirect('/join');
     });
 
 
@@ -59,16 +57,8 @@ module.exports = function (app, passport) {
     app.post('/sign_up', function (req, res) {
 
         xusername = req.body.username;
-        xfullname = req.body.fullname;
         xemail = req.body.email;
         opassword = req.body.password;
-
-        var english = /^[A-Za-z ']*$/;
-        if (!english.test(xfullname)) {
-            req.flash('error3', 'Name must contain only english letters.');
-            res.redirect('/');
-            return;
-        }
 
         if (opassword.length < 8) {
             req.flash('error2', 'Password must be at least 8 characters long.');
@@ -82,7 +72,6 @@ module.exports = function (app, passport) {
 
         models.User.create({
             name: xusername,
-            fullname: xfullname,
             email: xemail,
             password: opassword
         }).then(function (result) {
