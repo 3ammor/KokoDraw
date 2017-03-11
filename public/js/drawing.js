@@ -44,7 +44,26 @@ socket.on('circle_u', function (point, size, color) {
 });
 
 socket.on('msg_u', function (id, msg) {
-    document.getElementById('tezy').innerHTML = id + ": " + msg;
+    var msg_full = '<li class="mar-btm">' +
+        '<div class="media-right">' +
+        '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
+        '</div>' +
+        '<div class="media-body pad-hor">' +
+        '<div class="speech">' +
+        '<a href="#" class="media-heading">Mra shrmota</a>' +
+        '<p>' +
+        msg.value +
+        '</p>' +
+        '<p class="speech-time">' +
+        '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
+        '</p>' +
+        '</div>' +
+        '</div>' +
+        '</li>';
+
+    $(".chat-block").append(msg_full);
+    $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
+    $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
 });
 
 socket.on('join:load_page', function (json) {
@@ -55,9 +74,11 @@ socket.on('join:load_page', function (json) {
 window.onload = function () {
     document.getElementById("chat_height").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
     document.getElementById("row_canvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
+    // document.getElementById("myCanvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
+    // document.getElementById("myCanvas").setAttribute('style', 'Width: ' + String(parseInt(window.innerWidth * 0.7) + "px"));
 
-    // document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.96);
-    // document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.92);
+    document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.8);
+    document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.95);
     paper.setup('myCanvas');
 
 
@@ -150,7 +171,28 @@ function changeMyTool(t) {
 
 function sendMessage() {
     var msg = document.getElementById('input');
-    document.getElementById('tezy').innerHTML = msg.value;
+
+    var msg_full = '<li class="mar-btm">' +
+        '<div class="media-left">' +
+        '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
+        '</div>' +
+        '<div class="media-body pad-hor">' +
+        '<div class="speech">' +
+        '<a href="#" class="media-heading">Moemen</a>' +
+        '<p>' +
+        msg.value +
+        '</p>' +
+        '<p class="speech-time">' +
+        '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
+        '</p>' +
+        '</div>' +
+        '</div>' +
+        '</li>';
+
+    $(".chat-block").append(msg_full);
+    $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
+    $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
+
     socket.emit('msg', myRoom, id, msg.value);
 }
 
