@@ -7,8 +7,19 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 /* GET home page. */
-router.get('/', function(req, res) {
-    res.render('join', { title: '' });
+router.get('/',isLoggedIn,
+    function(req, res) {
+        res.render('join');
 });
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
 
 module.exports = router;

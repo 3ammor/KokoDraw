@@ -6,20 +6,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var paper = require('paper');
+var passport = require('passport');
 var session = require('express-session');
-
 
 var app = express();
 //creating server and connecting socket with server
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+require('./config/passport'); // pass passport for configuration
+
 //===============EXPRESS================
 // Configure Engines
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hjs');
 
 //===============EXPRESS================
 // Configure Express
@@ -27,25 +28,23 @@ app.set('view engine', 'hjs');
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(flash());
 app.use(cookieParser());
-app.use(session({secret: 'cat', cookie: {maxAge: 60000}, resave: true, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.set('view engine', 'ejs');
 
-//===============EXPRESS================
-// Configure links to routes
+// required for passport
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
-var login = require('./routes/login');
-var join = require('./routes/join');
-var rooms = require('./routes/room');
+require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.use('/', login);
-app.use('/login', login);
-app.use('/join', join);
-app.use('/rooms', rooms);
-app.use('/rooms/chat', rooms);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
