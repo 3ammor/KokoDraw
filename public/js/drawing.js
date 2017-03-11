@@ -3,8 +3,8 @@ var myColor = new Color(0, 0, 0);
 var myTool = "Path";
 var socket = io.connect('http://localhost:3000');
 var usersPaths = {};
-var myRoom = document.getElementById('room-id').innerHTML;
-var myId = document.getElementById('user-id').innerHTML;
+var myRoom = 0;
+var myId = 0;
 
 socket.on('path_request_u', function (id, point, color) {
     console.log('tez mostafa');
@@ -74,6 +74,8 @@ socket.on('join:load_page', function (json) {
 });
 
 window.onload = function () {
+    myRoom = document.getElementById('room-id').innerHTML;
+    myId = document.getElementById('user-id').innerHTML;
     document.getElementById("chat_height").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
     document.getElementById("row_canvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
     // document.getElementById("myCanvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
