@@ -31,7 +31,7 @@ io.sockets.setMaxListeners(0);
 io.sockets.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log("disconnecting");
-    })
+    });
 
 
     socket.on('path_request_u', function (room_id, id, point, color) {
@@ -71,7 +71,7 @@ function join(socket, room) {
             projects[room] = new paper.Project();
         }
         else {
-            project_json = db.get_project(room)
+            project_json = db.get_project(room);
             projects[room] = new paper.Project();
             projects[room].importJSON(project_json);
             io.in(room).emit('join:load_page', project_json);
