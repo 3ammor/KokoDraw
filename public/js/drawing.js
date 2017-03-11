@@ -44,7 +44,7 @@ socket.on('circle_u', function (point, size, color) {
 });
 
 socket.on('msg_u', function (id, msg) {
-    document.getElementById('tezy').innerHTML =  msg;
+    document.getElementById('tezy').innerHTML = id + ": " + msg;
 });
 
 socket.on('join:load_page', function (json) {
@@ -129,9 +129,9 @@ window.onload = function () {
 
             socket.emit('path_end', myRoom, id)
         } else if (myTool == "Rect") {
-            socket.emit('rect', myRoom, id, rect.position, size_,myColor)
+            socket.emit('rect', myRoom, id, rect.position, size_, myColor)
         } else {
-            socket.emit('circle', myRoom, id, circle.position, size_,myColor)
+            socket.emit('circle', myRoom, id, circle.position, size_, myColor)
         }
     };
 
