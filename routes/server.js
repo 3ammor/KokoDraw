@@ -4,23 +4,23 @@
 
 
 
-var express = require("express"),
-    paper = require('paper'),
-    socket = require('socket.io'),
-    http = require('http'),
-    https = require('https');
-   double_p = require('double_p.js');
+// var express = require("express"),
+//     paper = require('paper'),
+//     socket = require('socket.io'),
+//     http = require('http'),
+//     https = require('https');
+var double_p = require('double_p.js');
 
 
-var app = express();
-var server = app.listen(3000);
+// var app = express();
+// var server = app.listen(3000);
 
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.sendfile(__dirname + '/views/join.ejs');
 });
 
-app.get('/draw/*', function(req, res){
+app.get('/draw/*', function (req, res) {
     res.sendfile(__dirname + '/views/room.ejs');
 });
 
@@ -34,9 +34,9 @@ io.sockets.on('connection', function (socket) {
     })
 
 
-    socket.on('path_request_u', function (room_id, id, point,color) {
+    socket.on('path_request_u', function (room_id, id, point, color) {
         io.in(room).emit('path_request_u', id, point);
-        draw.draw_end(room, point, id,color);
+        draw.draw_end(room, point, id, color);
     });
 
 
@@ -51,7 +51,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('join', function (room) {
-        join(socket,room);
+        join(socket, room);
     });
 
 
@@ -60,33 +60,34 @@ io.sockets.on('connection', function (socket) {
 
 function join(socket, room) {
     socket.join(room);
-    paths=double_p.paths;
-    projects=double_p.projects;
+    paths = double_p.paths;
+    projects = double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
-     if (0){}
+        if (0) {
+        }
 
-      //   else if (! db.check_existence(room)){
-      //     paths=double_p.paths;
-      //     projects=double_p.projects;
-      //     paths[room]={};
-      //     projects[room]= new paper.Project();
-      // }
-      else {
-         // project_json= db.get_project(room)
-          projects[room]= new paper.Project();
-          projects[room].importJSON(project_json);
-          io.in(room).emit('join:load_page',project_json);
+        //   else if (! db.check_existence(room)){
+        //     paths=double_p.paths;
+        //     projects=double_p.projects;
+        //     paths[room]={};
+        //     projects[room]= new paper.Project();
+        // }
+        else {
+            // project_json= db.get_project(room)
+            projects[room] = new paper.Project();
+            projects[room].importJSON(project_json);
+            io.in(room).emit('join:load_page', project_json);
 
 
-      }
+        }
 
     }
-    else  {
+    else {
         var project_json = projects[room].exportJSON();
-        io.in(room).emit('join:load_page',project_json);
+        io.in(room).emit('join:load_page', project_json);
 
-      }
+    }
     io.in(room).emit('join:end');
 
 

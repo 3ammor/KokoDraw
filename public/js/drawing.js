@@ -1,23 +1,72 @@
 paper.install(window);
 var myColor = new Color(0, 0, 0);
 var myTool = "Path";
+var socket = io.connect('http://localhost:3000');
+var usersPaths = {};
+var myRoom = 0;
+var id = 0;
+
+socket.on('path_request_u', function (id, point, color) {
+    console.log('tez mostafa');
+    console.log(color);
+    usersPaths[id] = new Path({
+        segments: [new Point(point[1], point[2])],
+        // Select the path, so we can see its segment points:
+        fullySelected: false
+    });
+    usersPaths[id].strokeColor = new Color(color[1], color[2], color[3]);
+    usersPaths[id].strokeWidth = 10;
+});
+
+socket.on('path_point_u', function (id, point) {
+    usersPaths[id].add(new Point(point[1], point[2]));
+});
+
+socket.on('path_end_u', function (id) {
+    usersPaths[id].simplify(10);
+    usersPaths[id] = null;
+});
+
+socket.on('rect_u', function (point, size, color) {
+    new Path.Rectangle({
+        position: new Point(point[1], point[2]),
+        size: size,
+        fillColor: new Color(color[1], color[2], color[3])
+    });
+});
+
+socket.on('circle_u', function (point, size, color) {
+    new Path.Circle({
+        center: new Point(point[1], point[2]),
+        radius: size,
+        fillColor: new Color(color[1], color[2], color[3])
+    });
+});
+
+socket.on('msg_u', function (id, msg) {
+    document.getElementById('tezy').innerHTML = id + ": " + msg;
+});
+
+socket.on('join:load_page', function (json) {
+    console.log('.......................');
+    paper.project.importJSON(json)
+});
 
 window.onload = function () {
     document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.96);
     document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.92);
     paper.setup('myCanvas');
 
-    // Create a simple drawing tool:
 
     var path;
     var circle;
     var rect;
     var size_;
-    var socket = io.connect('http://localhost:3000');
     var tool = new Tool();
-    var usersPaths = {};
-    var myRoom = 0;
-    var id = 0;
+
+
+    socket.emit('join', myRoom);
+
 
     tool.onMouseDown = function (event) {
 
@@ -80,50 +129,11 @@ window.onload = function () {
 
             socket.emit('path_end', myRoom, id)
         } else if (myTool == "Rect") {
-            socket.emit('rect', myRoom, id, rect.position, size_)
+            socket.emit('rect', myRoom, id, rect.position, size_, myColor)
         } else {
-            socket.emit('rect', myRoom, id, circle.position, size_)
+            socket.emit('circle', myRoom, id, circle.position, size_, myColor)
         }
     };
-
-
-    socket.on('path_request_u', function (id, point, color) {
-        usersPaths[id] = new Path({
-            segments: [event.point],
-            // Select the path, so we can see its segment points:
-            fullySelected: false
-        });
-        path.strokeColor = color;
-        path.strokeWidth = 10;
-    });
-
-    socket.on('path_point_u', function (id, point) {
-        usersPaths[id].add(point);
-    });
-
-    socket.on('path_end_u', function (id) {
-        usersPaths[id].simplify(10);
-    });
-
-    socket.on('rect_u', function (point, size, color) {
-        new Path.Rectangle({
-            position: point,
-            size: size,
-            fillColor: color
-        });
-    });
-
-    socket.on('circle_u', function (point, size, color) {
-        new Path.Circle({
-            center: point,
-            radius: size,
-            fillColor: color
-        });
-    });
-
-    socket.on('join:load_page', function (json) {
-        paper.project.importJSON(json)
-    });
 
 };
 
@@ -134,3 +144,10 @@ function changeColor(r, g, b) {
 function changeMyTool(t) {
     myTool = t;
 }
+
+function sendMessage() {
+    var msg = document.getElementById('input');
+    document.getElementById('tezy').innerHTML = msg.value;
+    socket.emit('msg', myRoom, id, msg.value);
+}
+

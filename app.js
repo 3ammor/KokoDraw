@@ -81,5 +81,102 @@ app.use(function (err, req, res, next) {
 // server listen
 server.listen(3000);
 
+var double_p = require('./routes/double_p.js');
+var draw = require('./routes/draw.js');
+
+// app.get('/', function (req, res) {
+//     res.sendfile(__dirname + '/views/join.ejs');
+// });
+//
+// app.get('/draw/*', function (req, res) {
+//     res.sendfile(__dirname + '/views/room.ejs');
+// });
+
+// var socket = io;
+// var io = socket.listen(server);
+// io.sockets.setMaxListeners(0);
+
+io.sockets.on('connection', function (socket) {
+    console.log('tezy');
+    socket.on('disconnect', function () {
+        console.log("disconnecting");
+    });
+
+
+    socket.on('path_request', function (room, id, point, color) {
+        console.log('es7a ya mo2men');
+        io.in(room).emit('path_request_u', id, point, color);
+        draw.draw(room, point, id, color);
+    });
+
+
+    socket.on('path_point', function (room, id, point) {
+        io.in(room).emit('path_point_u', id, point);
+        draw.add_point(room, point, id);
+    });
+
+    socket.on('path_end', function (room, id) {
+        io.in(room).emit('path_end_u', id);
+        draw.draw_end(room, id);
+    });
+
+    socket.on('rect', function (room, id,pos,size,color) {
+        io.in(room).emit('rect_u',pos,size,color);
+        draw.draw_rect(room,pos,size,color);
+    });
+    socket.on('circle', function (room, id,pos,size,color) {
+        io.in(room).emit('circle_u',pos,size,color);
+        draw.draw_circle(room,pos,size,color);
+    });
+    socket.on('msg', function (room, id,msg) {
+        io.in(room).emit('msg_u',id,msg);
+    });
+    socket.on('join', function (room) {
+        console.log("joining");
+        joinn(socket, room);
+    });
+
+
+});
+
+
+function joinn(socket, room) {
+    console.log("joininggggggggggggg");
+    socket.join(room);
+    paths = double_p.paths;
+    projects = double_p.projects;
+    var project = double_p.projects[room];
+    if (!project) {
+        if (0) {
+        }
+
+         //  else if (! db.check_existence(room)){
+    else {
+            console.log("el project el kos");
+
+            paths=double_p.paths;
+            projects=double_p.projects;
+            paths[room]={};
+            projects[room]= new paper.Project();
+            console.log(room);
+
+        }
+            // }
+//        else {
+            // project_json= db.get_project(room)
+           // projects[room] = new paper.Project();
+            //projects[room].importJSON(project_json);
+              // io.in(room).emit('join:load_page', project_json);
+  //      }
+
+    }
+    else {
+        console.log('bitch better have my json');
+        var project_json = projects[room].exportJSON();
+        io.in(room).emit('join:load_page', project_json);
+
+    }
+    io.in(room).emit('join:end');
+}
 
 module.exports = app;
