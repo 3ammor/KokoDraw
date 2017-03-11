@@ -49,7 +49,7 @@ socket.on('msg_u', function (id, msg) {
             '<div class="media-right">' +
             '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
             '</div>' +
-            '<div class="media-body pad-hor">' +
+            '<div class="media-body pad-hor speech-right">' +
             '<div class="speech">' +
             '<a href="#" class="media-heading">Mra shrmota</a>' +
             '<p>' +

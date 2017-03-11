@@ -18,8 +18,6 @@ require('./config/passport'); // pass passport for configuration
 
 //===============EXPRESS================
 // Configure Engines
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
 //===============EXPRESS================
@@ -83,18 +81,6 @@ server.listen(3000);
 var double_p = require('./routes/double_p.js');
 var draw = require('./routes/draw.js');
 
-// app.get('/', function (req, res) {
-//     res.sendfile(__dirname + '/views/join.ejs');
-// });
-//
-// app.get('/draw/*', function (req, res) {
-//     res.sendfile(__dirname + '/views/room.ejs');
-// });
-
-// var socket = io;
-// var io = socket.listen(server);
-// io.sockets.setMaxListeners(0);
-
 io.sockets.on('connection', function (socket) {
     console.log('tezy');
     socket.on('disconnect', function () {
@@ -119,16 +105,16 @@ io.sockets.on('connection', function (socket) {
         draw.draw_end(room, id);
     });
 
-    socket.on('rect', function (room, id,pos,size,color) {
-        io.in(room).emit('rect_u',pos,size,color);
-        draw.draw_rect(room,pos,size,color);
+    socket.on('rect', function (room, id, pos, size, color) {
+        io.in(room).emit('rect_u', pos, size, color);
+        draw.draw_rect(room, pos, size, color);
     });
-    socket.on('circle', function (room, id,pos,size,color) {
-        io.in(room).emit('circle_u',pos,size,color);
-        draw.draw_circle(room,pos,size,color);
+    socket.on('circle', function (room, id, pos, size, color) {
+        io.in(room).emit('circle_u', pos, size, color);
+        draw.draw_circle(room, pos, size, color);
     });
-    socket.on('msg', function (room, id,msg) {
-        io.in(room).emit('msg_u',id,msg);
+    socket.on('msg', function (room, id, msg) {
+        io.in(room).emit('msg_u', id, msg);
     });
     socket.on('join', function (room) {
         console.log("joining");
@@ -149,24 +135,24 @@ function joinn(socket, room) {
         if (0) {
         }
 
-         //  else if (! db.check_existence(room)){
-    else {
+        //  else if (! db.check_existence(room)){
+        else {
             console.log("el project el kos");
 
-            paths=double_p.paths;
-            projects=double_p.projects;
-            paths[room]={};
-            projects[room]= new paper.Project();
+            paths = double_p.paths;
+            projects = double_p.projects;
+            paths[room] = {};
+            projects[room] = new paper.Project();
             console.log(room);
 
         }
-            // }
+        // }
 //        else {
-            // project_json= db.get_project(room)
-           // projects[room] = new paper.Project();
-            //projects[room].importJSON(project_json);
-              // io.in(room).emit('join:load_page', project_json);
-  //      }
+        // project_json= db.get_project(room)
+        // projects[room] = new paper.Project();
+        //projects[room].importJSON(project_json);
+        // io.in(room).emit('join:load_page', project_json);
+        //      }
 
     }
     else {

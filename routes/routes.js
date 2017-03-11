@@ -24,13 +24,14 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
+    // Room =====================================
+    app.get('/rooms', function (req, res) {
+        res.render('room');
+    });
+
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
-
-    // locally --------------------------------
-    // LOGIN ===============================
-    // show the login form
 
     // process the login form
     app.post('/sign_in', passport.authenticate('local-login', {
@@ -40,8 +41,6 @@ module.exports = function (app, passport) {
     }));
 
     // SIGNUP =================================
-    // show the signup form
-
     app.post('/sign_up', function (req, res) {
 
         xusername = req.body.username;

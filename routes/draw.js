@@ -35,7 +35,7 @@ exports.draw_end = function (room, id) {
 
 };
 
-exports.draw_rect = function (room,pos,size,color) {
+exports.draw_rect = function (room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
@@ -43,20 +43,20 @@ exports.draw_rect = function (room,pos,size,color) {
     rect = new paper.Path.Rectangle({
         position: new paper.Point(pos[1], pos[2]),
         size: size,
-        fillColor:  new paper.Color(color[1], color[2], color[3])
+        fillColor: new paper.Color(color[1], color[2], color[3])
     });
 
 };
 
-exports.draw_circle = function (room,pos,size,color) {
+exports.draw_circle = function (room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
 
     circle = new paper.Path.Circle({
-        center:  new paper.Point(pos[1], pos[2]),
+        center: new paper.Point(pos[1], pos[2]),
         radius: size,
-        fillColor:  new paper.Color(color[1], color[2], color[3])
+        fillColor: new paper.Color(color[1], color[2], color[3])
     });
 
     // add in data base
