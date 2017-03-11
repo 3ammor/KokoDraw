@@ -4,7 +4,7 @@ var myTool = "Path";
 var socket = io.connect('http://localhost:3000');
 var usersPaths = {};
 var myRoom = 0;
-var id = 0;
+var myId = Math.floor(Math.random() * 20);
 
 socket.on('path_request_u', function (id, point, color) {
     console.log('tez mostafa');
@@ -44,26 +44,28 @@ socket.on('circle_u', function (point, size, color) {
 });
 
 socket.on('msg_u', function (id, msg) {
-    var msg_full = '<li class="mar-btm">' +
-        '<div class="media-right">' +
-        '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
-        '</div>' +
-        '<div class="media-body pad-hor">' +
-        '<div class="speech">' +
-        '<a href="#" class="media-heading">Mra shrmota</a>' +
-        '<p>' +
-        msg.value +
-        '</p>' +
-        '<p class="speech-time">' +
-        '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
-        '</p>' +
-        '</div>' +
-        '</div>' +
-        '</li>';
+    if (id != myId) {
+        var msg_full = '<li class="mar-btm">' +
+            '<div class="media-right">' +
+            '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
+            '</div>' +
+            '<div class="media-body pad-hor">' +
+            '<div class="speech">' +
+            '<a href="#" class="media-heading">Mra shrmota</a>' +
+            '<p>' +
+            msg +
+            '</p>' +
+            '<p class="speech-time">' +
+            '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
+            '</p>' +
+            '</div>' +
+            '</div>' +
+            '</li>';
 
-    $(".chat-block").append(msg_full);
-    $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
-    $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
+        $(".chat-block").append(msg_full);
+        $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
+        $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
+    }
 });
 
 socket.on('join:load_page', function (json) {
@@ -103,7 +105,7 @@ window.onload = function () {
             });
             path.strokeColor = myColor;
             path.strokeWidth = 10;
-            socket.emit('path_request', myRoom, id, event.point, myColor)
+            socket.emit('path_request', myRoom, myId, event.point, myColor)
         } else if (myTool == 'Rect') {
             rect = new Path.Rectangle({
                 position: event.point,
@@ -123,7 +125,7 @@ window.onload = function () {
     tool.onMouseDrag = function (event) {
         if (myTool == 'Path') {
             path.add(event.point);
-            socket.emit('path_point', myRoom, id, event.point)
+            socket.emit('path_point', myRoom, myId, event.point)
         } else if (myTool == 'Rect') {
             var p = rect.position;
             rect.remove();
@@ -151,11 +153,11 @@ window.onload = function () {
             // When the mouse is released, simplify it:
             path.simplify(10);
 
-            socket.emit('path_end', myRoom, id)
+            socket.emit('path_end', myRoom, myId)
         } else if (myTool == "Rect") {
-            socket.emit('rect', myRoom, id, rect.position, size_, myColor)
+            socket.emit('rect', myRoom, myId, rect.position, size_, myColor)
         } else {
-            socket.emit('circle', myRoom, id, circle.position, size_, myColor)
+            socket.emit('circle', myRoom, myId, circle.position, size_, myColor)
         }
     };
 
@@ -193,6 +195,7 @@ function sendMessage() {
     $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
     $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
 
-    socket.emit('msg', myRoom, id, msg.value);
+    socket.emit('msg', myRoom, myId, msg.value);
+    msg.value = "";
 }
 
