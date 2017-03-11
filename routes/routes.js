@@ -16,7 +16,7 @@ module.exports = function (app, passport) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/join', isLoggedIn, function (req, res) {
+    app.get('/join', function (req, res) {
         res.render('join');
     });
 
