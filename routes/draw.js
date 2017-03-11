@@ -16,7 +16,6 @@ exports.draw = function (room, point, id, color) {
         fullySelected: false,
         strokeWidth: 10
     });
-    db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
 };
 
@@ -25,7 +24,6 @@ exports.add_point = function (room, point, id) {
     projects = double_p.projects;
     projects[room].activate();
     paths[room][id].add(new paper.Point(point[1], point[2]));
-    db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
 };
 

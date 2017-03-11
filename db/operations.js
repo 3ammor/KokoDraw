@@ -44,19 +44,28 @@ exports.roomCreateUpdate = function (user_id, token, json) {
 
 
 exports.checkExistence = function (token) {
+    console.log("a7aaaaaaaaaaa");
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
+        console.log("oooh yaaaah");
+        console.log(room);
         if (room != null) {
+            console.log("ah");
+
             return true;
         }
+        console.log("la");
         return false;
+
     }).catch(function (err) {
+        console.log("console 3m hosny");
         return false;
     });
-}
+    console.log("hey apple!");
+};
 
 exports.getJSON = function (token) {
     models.Room.findOne({
