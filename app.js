@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(flash());
 app.use(cookieParser());
-app.use(session({ secret: 'cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true}));
+app.use(session({secret: 'cat', cookie: {maxAge: 60000}, resave: true, saveUninitialized: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.set('view engine', 'ejs');
@@ -45,6 +45,7 @@ app.use('/', login);
 app.use('/login', login);
 app.use('/join', join);
 app.use('/rooms', rooms);
+app.use('/rooms/chat', rooms);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
