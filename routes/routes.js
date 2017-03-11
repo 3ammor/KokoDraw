@@ -29,11 +29,18 @@ module.exports = function (app, passport) {
 
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
-        res.render('room');
+        
     });
+
     // Room =====================================
-    app.get('/rooms', isLoggedIn, function (req, res) {
-        res.render('room');
+    app.get('/rooms/:id', isLoggedIn, function (req, res) {
+        models.UserRoom.findOne({
+            where: {
+                UserId: req.user.id,
+                RoomId: req.params.id
+            }.then(function (room) {
+
+            })
     });
 
 
