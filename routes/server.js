@@ -64,14 +64,16 @@ function join(socket, room) {
     projects=double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
-      if (! db.check_existence(room)){
-          paths=double_p.paths;
-          projects=double_p.projects;
-          paths[room]={};
-          projects[room]= new paper.Project();
-      }
+     if (0){}
+
+      //   else if (! db.check_existence(room)){
+      //     paths=double_p.paths;
+      //     projects=double_p.projects;
+      //     paths[room]={};
+      //     projects[room]= new paper.Project();
+      // }
       else {
-         project_json= db.get_project(room)
+         // project_json= db.get_project(room)
           projects[room]= new paper.Project();
           projects[room].importJSON(project_json);
           io.in(room).emit('join:load_page',project_json);
