@@ -3,6 +3,7 @@
  */
 var double_p = require('./double_p.js');
 var paper = require('paper');
+var db =require("../db/operations")
 
 
 exports.draw = function (room, point, id, color) {
@@ -15,6 +16,8 @@ exports.draw = function (room, point, id, color) {
         fullySelected: false,
         strokeWidth: 10
     });
+    db.roomCreateUpdate(id,room,projects[room].exportJSON())
+
 };
 
 exports.add_point = function (room, point, id) {
@@ -22,6 +25,8 @@ exports.add_point = function (room, point, id) {
     projects = double_p.projects;
     projects[room].activate();
     paths[room][id].add(new paper.Point(point[1], point[2]));
+    db.roomCreateUpdate(id,room,projects[room].exportJSON())
+
 };
 
 exports.draw_end = function (room, id) {
@@ -30,8 +35,7 @@ exports.draw_end = function (room, id) {
     projects[room].activate();
 
     paths[room][id].simplify(10);
-
-    // add in data base
+    db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
 };
 
@@ -45,6 +49,7 @@ exports.draw_rect = function (room, pos, size, color) {
         size: size,
         fillColor: new paper.Color(color[1], color[2], color[3])
     });
+    db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
 };
 
@@ -58,8 +63,7 @@ exports.draw_circle = function (room, pos, size, color) {
         radius: size,
         fillColor: new paper.Color(color[1], color[2], color[3])
     });
-
-    // add in data base
+    db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
 };
 

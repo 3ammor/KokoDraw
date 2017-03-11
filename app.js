@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var paper = require('paper');
 var passport = require('passport');
 var session = require('express-session');
-var db =require("./db/operation")
+var db =require("./db/operations")
 var app = express();
 //creating server and connecting socket with server
 var server = require('http').createServer(app);
@@ -132,11 +132,10 @@ function joinn(socket, room) {
     projects = double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
-        if (0) {
-        }
 
-        //  else if (! db.check_existence(room)){
-        else {
+
+         if (! db.checkExistence(room))
+         {
             console.log("el project el kos");
 
             paths = double_p.paths;
@@ -146,13 +145,13 @@ function joinn(socket, room) {
             console.log(room);
 
         }
-        // }
-//        else {
-        // project_json= db.get_project(room)
-        // projects[room] = new paper.Project();
-        //projects[room].importJSON(project_json);
-        // io.in(room).emit('join:load_page', project_json);
-        //      }
+
+       else {
+        project_json= db.getJSON(room)
+        projects[room] = new paper.Project();
+        projects[room].importJSON(project_json);
+        io.in(room).emit('join:load_page', project_json);
+             }
 
     }
     else {
