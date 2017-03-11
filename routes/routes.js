@@ -24,7 +24,8 @@ module.exports = function (app, passport) {
 
     app.post('/joinroom', isLoggedIn, function (req, res){
         if(req.token != null) {
-            req.res.render('room', {userid: req.user.id, token: token});
+            req.session['token'] = token;
+            res.redirect('/rooms');
         }
     });
 
