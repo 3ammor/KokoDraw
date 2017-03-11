@@ -93,7 +93,7 @@ window.onload = function () {
     var tool = new Tool();
 
 
-    socket.emit('join', myRoom);
+    socket.emit('join', myRoom, myId);
 
 
     tool.onMouseDown = function (event) {
