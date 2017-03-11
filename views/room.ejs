@@ -12,16 +12,16 @@
     <title>KokoDraw</title>
     <!-- Links to css -->
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
-    <link rel='stylesheet' href='/css/bootstrap-theme.min.css'/>
+    <!--<link rel='stylesheet' href='/css/bootstrap-theme.min.css'/>-->
     <link rel='stylesheet' href='/js/jquery-ui/jquery-ui.min.css'/>
     <link rel='stylesheet' href='/css/font-awesome/css/font-awesome.min.css'/>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery-ui/jquery-ui.min.js"></script>
     <script src="/js/validator.js"></script>
-    <script type="text/javascript" src="js/paper-full.js"></script>
-    <script type="text/javascript" src="js/socket.io.js"></script>
-    <script type="text/javascript" src="js/drawing.js"></script>
+    <script type="text/javascript" src="/js/paper-full.js"></script>
+    <script type="text/javascript" src="/js/socket.io.js"></script>
+    <script type="text/javascript" src="/js/drawing.js"></script>
 
     <link rel='stylesheet' href='/css/chat.css'/>
     <link rel='stylesheet' href='/css/room.css'/>
@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="fluid-container">
-    <div class="row" style="margin: 0">
+    <div class="row" style="margin: 0px; ">
         <div class="col-sm-3">
             <div class="panel">
                 <!--Heading-->
@@ -53,26 +53,52 @@
                             <input id='input' type="text" placeholder="Enter your text" class="form-control chat-input">
                         </div>
                         <div class="col-xs-3">
-                            <button class="btn btn-primary btn-block" type="submit" onclick="sendMessage()">Send</button>
+                            <button class="chat-btn btn-primary btn-block" type="submit" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
+            <br>
             <div class="row">
-                <button type="button" onclick="changeColor(0, 0, 0)">BLACK</button>
-                <button type="button" onclick="changeColor(1, 0, 0)">RED</button>
-                <button type="button" onclick="changeColor(0, 1, 0)">GREEN</button>
-                <button type="button" onclick="changeColor(0, 0, 1)">BLUE</button>
-                <button type="button" onclick="changeColor(1, 1, 0)">YELLOW</button>
-                <button type="button" onclick="changeColor(1, 0, 1)">MAGENTA</button>
-                <button type="button" onclick="changeColor(0, 1, 1)">CYAN</button>
-                <button type="button" onclick="changeColor(1, 1, 1)">ERASER</button>
-                <button type="button" onclick="changeMyTool('Path')">Path</button>
-                <button type="button" onclick="changeMyTool('Circle')">Circle</button>
-                <button type="button" onclick="changeMyTool('Rect')">Square</button>
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick="changeMyTool('Path')"><i class="fa-paint-brush"></i> Path</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick="changeMyTool('Circle')"><i class="fa-circle"></i> Circle</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick="changeMyTool('Rect')"><i class="fa-square"></i> Square</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick="changeColor(1, 1, 1)"><i class="fa-eraser"></i> ERASER</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick="changeColor(0, 0, 0)">BLACK</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:red;" onclick="changeColor(1, 0, 0)">RED</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:green;" onclick="changeColor(0, 1, 0)">GREEN</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:blue;" onclick="changeColor(0, 0, 1)">BLUE</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:yellow;" onclick="changeColor(1, 1, 0)">YELLOW</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:cyan;" onclick="changeColor(0, 1, 1)">CYAN</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" style="color:magenta;" onclick="changeColor(1, 0, 1)">MAGENTA</button>
+                    </div>
+                </div>
             </div>
+            <br>
             <div class="row" id="row_canvas">
                 <canvas id="myCanvas" style="height: inherit;"></canvas>
             </div>

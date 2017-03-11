@@ -1,24 +1,19 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
-    id: {type: DataTypes.INTEGER, unique: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, primaryKey: true},
-    fullname: DataTypes.STRING,
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true},
     email: DataTypes.STRING,
     password: DataTypes.STRING
   },{
-    classMethods: {
+  classMethods: {
       associate: function(models) {
-        User.belongsToMany(models.Room, {
-        through: "UserRoom",
-     		onDelete: "CASCADE",
-      		foreignKey: {
-        		allowNull: false
-          }
-     		});
-  }
-}});
+                User.belongsToMany(models.Room, {
+                    through: "UserRoom"
+                  }
+              );
+      }
+    }
+  });
   return User;
 };
-
-                       

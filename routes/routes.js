@@ -2,6 +2,7 @@ module.exports = function (app, passport) {
     require('../config/passport');
     var bcrypt = require('bcrypt');
     var models = require('../models/index');
+    var passwordHash = require('password-hash');
 
 // normal routes ===============================================================
 
@@ -16,7 +17,7 @@ module.exports = function (app, passport) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/join', function (req, res) {
+    app.get('/join', isLoggedIn, function (req, res) {
         res.render('join');
     });
 
@@ -29,11 +30,15 @@ module.exports = function (app, passport) {
 
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
-        res.render('room');
+        var now = new Date();
+        req.session['token'] = passwordHash.generate(now.getTime().toString());
+        res.redirect('/rooms/');
     });
     // Room =====================================
     app.get('/rooms', isLoggedIn, function (req, res) {
-        res.render('room');
+        if(req.session['token'] != null)
+            res.render('room',{userid: req.user.id, token: req.session['token']});
+        else res.redirect('/join');
     });
 
 
