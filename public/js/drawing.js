@@ -86,45 +86,45 @@ window.onload = function () {
         }
     };
 
-    function recieveAction() {
-        socket.on('path_request_u', function (id, point, color) {
-            usersPaths[id] = new Path({
-                segments: [event.point],
-                // Select the path, so we can see its segment points:
-                fullySelected: false
-            });
-            path.strokeColor = color;
-            path.strokeWidth = 10;
-        });
 
-        socket.on('path_point_u', function (id, point) {
-            usersPaths[id].add(point);
+    socket.on('path_request_u', function (id, point, color) {
+        usersPaths[id] = new Path({
+            segments: [event.point],
+            // Select the path, so we can see its segment points:
+            fullySelected: false
         });
+        path.strokeColor = color;
+        path.strokeWidth = 10;
+    });
 
-        socket.on('path_end_u', function (id) {
-            usersPaths[id].simplify(10);
-        });
+    socket.on('path_point_u', function (id, point) {
+        usersPaths[id].add(point);
+    });
 
-        socket.on('rect_u', function (point, size, color) {
-            new Path.Rectangle({
-                position: point,
-                size: size,
-                fillColor: color
-            });
-        });
+    socket.on('path_end_u', function (id) {
+        usersPaths[id].simplify(10);
+    });
 
-        socket.on('circle_u', function (point, size, color) {
-            new Path.Circle({
-                center: point,
-                radius: size,
-                fillColor: color
-            });
+    socket.on('rect_u', function (point, size, color) {
+        new Path.Rectangle({
+            position: point,
+            size: size,
+            fillColor: color
         });
+    });
 
-        socket.on('join:load_page', function (json) {
-            paper.project.importJSON(json)
+    socket.on('circle_u', function (point, size, color) {
+        new Path.Circle({
+            center: point,
+            radius: size,
+            fillColor: color
         });
-    }
+    });
+
+    socket.on('join:load_page', function (json) {
+        paper.project.importJSON(json)
+    });
+
 };
 
 function changeColor(r, g, b) {
