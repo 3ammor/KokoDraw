@@ -51,8 +51,7 @@ exports.checkExistence = function (token) {
         }
     }).then(function (room) {
         console.log("oooh yaaaah");
-        console.log(room);
-        if (room != null) {
+         if (room != null) {
             console.log("ah");
 
             return true;
