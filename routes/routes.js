@@ -2,6 +2,7 @@ module.exports = function (app, passport) {
     require('../config/passport');
     var bcrypt = require('bcrypt');
     var models = require('../models/index');
+    var passwordHash = require('password-hash');
 
 // normal routes ===============================================================
 
