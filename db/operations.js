@@ -1,20 +1,25 @@
 var models = require('../models/index');
 
-function roomCreateUpdate(user_id, token, json) {
+exports.roomCreateUpdate = function (user_id, token, json) {
 
     jsonString = JSON.stringify(json);
+    console.log(token);
 
     models.Room.findOne({
         where: {
             name: token
-        }.then(function (room) {
-            if (room != null) {
+        }}).then(function (room) {
+
+        if (room != null) {
+                console.log("kosy");
                 room.updateAttributes({data: jsonString}).success(function () {
                     return 0;
                 });
             }
+
             else {
                 models.Room.create({
+                    name: token,
                     data: jsonString
                 }).then(function (room) {
                     models.User.findOne({
@@ -33,26 +38,27 @@ function roomCreateUpdate(user_id, token, json) {
                 });
             }
         }).catch(function (err) {
-            return -1
+            return -1;
         })
-    });
-}
+};
 
 
-function checkExistance(token) {
+exports.checkExistence = function (token) {
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
-            if (room != null) {
-               return true;
-            }
-            return false;
-        }).catch(function (err) { return false;});
+        if (room != null) {
+            return true;
+        }
+        return false;
+    }).catch(function (err) {
+        return false;
+    });
 }
 
-function getJSON(token) {
+exports.getJSON = function (token) {
     models.Room.findOne({
         where: {
             name: token
@@ -62,10 +68,12 @@ function getJSON(token) {
             return JSON.parse(room.data);
         }
         return null;
-    }).catch(function (err) {return null;});
+    }).catch(function (err) {
+        return null;
+    });
 }
 
-function getRoomToken(roomid) {
+exports.getRoomToken=function (roomid) {
     models.Room.findOne({
         where: {
             id: roomid
@@ -75,9 +83,11 @@ function getRoomToken(roomid) {
             return room.token;
         }
         return null;
-    }).catch(function (err) {return null;});
+    }).catch(function (err) {
+        return null;
+    });
 }
 
-function createUserInRoom(userid,roomid) {
+function createUserInRoom(userid, roomid) {
 
 }

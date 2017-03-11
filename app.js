@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var paper = require('paper');
 var passport = require('passport');
 var session = require('express-session');
-var db =require("./db/operation")
+var db =require("./db/operations.js")
 var app = express();
 //creating server and connecting socket with server
 var server = require('http').createServer(app);
@@ -116,27 +116,26 @@ io.sockets.on('connection', function (socket) {
     socket.on('msg', function (room, id, msg) {
         io.in(room).emit('msg_u', id, msg);
     });
-    socket.on('join', function (room) {
+    socket.on('join', function (room,id) {
         console.log("joining");
-        joinn(socket, room);
+        joinn(socket, room,id);
     });
 
 
 });
 
 
-function joinn(socket, room) {
+function joinn(socket, room,id) {
     console.log("joininggggggggggggg");
     socket.join(room);
     paths = double_p.paths;
     projects = double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
-        if (0) {
-        }
 
-        //  else if (! db.check_existence(room)){
-        else {
+
+         if (! db.checkExistence(room))
+         {
             console.log("el project el kos");
 
             paths = double_p.paths;
@@ -144,15 +143,16 @@ function joinn(socket, room) {
             paths[room] = {};
             projects[room] = new paper.Project();
             console.log(room);
+             db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
-        }
-        // }
-//        else {
-        // project_json= db.get_project(room)
-        // projects[room] = new paper.Project();
-        //projects[room].importJSON(project_json);
-        // io.in(room).emit('join:load_page', project_json);
-        //      }
+         }
+
+       else {
+        project_json= db.getJSON(room)
+        projects[room] = new paper.Project();
+        projects[room].importJSON(project_json);
+        io.in(room).emit('join:load_page', project_json);
+             }
 
     }
     else {

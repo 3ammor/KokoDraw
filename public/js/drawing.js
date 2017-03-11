@@ -74,12 +74,12 @@ socket.on('join:load_page', function (json) {
 });
 
 window.onload = function () {
-    myRoom = document.getElementById('room-id').innerHTML;
+
     myId = document.getElementById('user-id').innerHTML;
+    myRoom = document.getElementById('room-id').innerHTML;
+
     document.getElementById("chat_height").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
     document.getElementById("row_canvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
-    // document.getElementById("myCanvas").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
-    // document.getElementById("myCanvas").setAttribute('style', 'Width: ' + String(parseInt(window.innerWidth * 0.7) + "px"));
 
     document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.8);
     document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.95);
@@ -93,7 +93,7 @@ window.onload = function () {
     var tool = new Tool();
 
 
-    socket.emit('join', myRoom);
+    socket.emit('join', myRoom, myId);
 
 
     tool.onMouseDown = function (event) {
