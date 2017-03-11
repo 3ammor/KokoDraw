@@ -131,8 +131,6 @@ window.onload = function () {
     };
 
 
-
-
 };
 
 function changeColor(r, g, b) {
