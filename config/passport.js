@@ -1,5 +1,5 @@
 var models = require('../models/index');
-var passwordHash = require('password-hash');
+var bcrypt = require('bcrypt');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -11,9 +11,14 @@ passport.use('local-login', new LocalStrategy({
     },
     function (req, username, password, done) {
 
+        //const saltRounds = 10;
+        //var salt = bcrypt.genSaltSync(saltRounds);
+        //xpassword = bcrypt.hashSync(password, salt);
+
         models.User.findOne({
             where: {
-                name: username
+                name: username,
+                password: password
             }
         }).then(function (user) {
             // console.log(err);

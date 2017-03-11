@@ -1,5 +1,7 @@
 module.exports = function (app, passport) {
     require('../config/passport');
+    var bcrypt = require('bcrypt');
+    var models = require('../models/index');
 
 // normal routes ===============================================================
 
@@ -62,13 +64,15 @@ module.exports = function (app, passport) {
             return;
         }
 
-        xpassword = passwordHash.generate(opassword);
+        //const saltRounds = 10;
+        //var salt = bcrypt.genSaltSync(saltRounds);
+        //xpassword = bcrypt.hashSync(opassword, salt);
 
         models.User.create({
             name: xusername,
             fullname: xfullname,
             email: xemail,
-            password: xpassword
+            password: opassword
         }).then(function (result) {
             res.json(result);
         }).catch(function (err) {
