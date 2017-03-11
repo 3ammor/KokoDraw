@@ -24,7 +24,7 @@ module.exports = function (app, passport) {
 
     app.post('/joinroom', isLoggedIn, function (req, res){
         if(req.roomid != null) {
-            token = operations.getRoomToken(req.roomid);
+            var token = operations.getRoomToken(req.roomid);
             req.res.render('room', {userid: req.user.id, token: token});
         }
     });
