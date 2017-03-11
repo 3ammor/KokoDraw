@@ -41,7 +41,9 @@ socket.on('circle_u', function (point, size, color) {
     });
 });
 
-
+socket.on('msg_u', function (id, msg) {
+    document.getElementById('tezy').innerHTML = id + ": " + msg;
+});
 
 socket.on('join:load_page', function (json) {
     console.log('.......................');
@@ -132,7 +134,6 @@ window.onload = function () {
         }
     };
 
-
 };
 
 function changeColor(r, g, b) {
@@ -141,5 +142,11 @@ function changeColor(r, g, b) {
 
 function changeMyTool(t) {
     myTool = t;
+}
+
+function sendMessage() {
+    var msg = document.getElementById('input');
+    document.getElementById('tezy').innerHTML = msg.value;
+    socket.emit('msg', myRoom, id, msg.value);
 }
 
