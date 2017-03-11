@@ -23,8 +23,14 @@
         <h1>KOKO DRAW</h1>
         <h3>Let's have some fun with our drawings :)</h3>
         <br>
-        <a href="#" class="btn btn-dark btn-lg">Create ROOM</a>
-        <a href="#" class="btn btn-dark btn-lg">Join ROOM</a>
+        <form class="form-create" action='create' data-toggle="validator" method="POST">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create ROOM</button>
+        </form>
+        <form class="form-join" action='join' data-toggle="validator" method="POST">
+            <input id='input' type="text" placeholder="Enter your text" class="form-control chat-input">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Join ROOM</button>
+        </form>
+
     </div>
 </header>
 <div class="container">
