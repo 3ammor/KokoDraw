@@ -41,6 +41,8 @@ socket.on('circle_u', function (point, size, color) {
     });
 });
 
+
+
 socket.on('join:load_page', function (json) {
     console.log('.......................');
     paper.project.importJSON(json)

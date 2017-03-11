@@ -127,6 +127,9 @@ io.sockets.on('connection', function (socket) {
         io.in(room).emit('circle_u',pos,size,color);
         draw.draw_circle(room,pos,size,color);
     });
+    socket.on('msg', function (room, id,msg) {
+        io.in(room).emit('ms_u',id,msg);
+    });
     socket.on('join', function (room) {
         console.log("joining");
         joinn(socket, room);
