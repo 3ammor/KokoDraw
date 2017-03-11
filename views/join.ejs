@@ -14,29 +14,56 @@
     <link rel='stylesheet' href='/css/bootstrap-theme.min.css'/>
     <link rel='stylesheet' href='/js/jquery-ui/jquery-ui.min.css'/>
     <link rel='stylesheet' href='/css/font-awesome/css/font-awesome.min.css'/>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/js/validator.js"></script>
     <link rel='stylesheet' href='/css/join.css'/>
 </head>
 <body>
-<!-- Header -->
-<header id="top" class="header">
-    <div class="text-vertical-center">
-        <h1>KOKO DRAW</h1>
-        <h3>Let's have some fun with our drawings :)</h3>
-        <br>
-        <form class="form-create" action='create' data-toggle="validator" method="POST">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Create ROOM</button>
-        </form>
-        <form class="form-join" action='join' data-toggle="validator" method="POST">
-            <input id='input' type="text" placeholder="Enter your text" class="form-control chat-input">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Join ROOM</button>
-        </form>
-
-    </div>
-</header>
 <div class="container">
+    <div class="row">
+        <h1></h1></br>
+        <h1 class="home-title">Join a room</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+
+            </br>
+            </br>
+            </br>
+            </br>
+            <div class="form-horizontal">
+                <label for="room">Room URL </label>
+                <div class="form-inline">
+                    <input type="url" name="room" value="" class="form-control" placeholder="Enter the room URL"
+                           style="width:84%" autofocus required>
+                    <button class="btn" type="submit">Join</button>
+                </div>
+            </div><!-- form-group -->
+
+            </br>
+            </br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create new room</button>
+
+        </div><!-- col-md-4 -->
+
+    </div><!-- row -->
 </div>
+<!-- Header -->
+<!--<header id="top" class="header">-->
+<!--<div class="text-vertical-center">-->
+<!--<h1>KOKO DRAW</h1>-->
+<!--<h3>Let's have some fun with our drawings :)</h3>-->
+<!--<br>-->
+<!--<a href="#" class="btn btn-dark btn-lg">Create ROOM</a>-->
+<!--<a href="#" class="btn btn-dark btn-lg">Join ROOM</a>-->
+<!--</div>-->
+<!--</header>-->
+<div class="container"></div>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery-ui/jquery-ui.min.js"></script>
 </body>
 </html>
+
