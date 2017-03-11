@@ -119,6 +119,14 @@ io.sockets.on('connection', function (socket) {
         draw.draw_end(room, id);
     });
 
+    socket.on('rect', function (room, id,pos,size,color) {
+        io.in(room).emit('rect_u',pos,size,color);
+        draw.draw_rect(room,pos,size,color);
+    });
+    socket.on('circle', function (room, id,pos,size,color) {
+        io.in(room).emit('circle_u',pos,size,color);
+        draw.draw_circle(room,pos,size,color);
+    });
     socket.on('join', function (room) {
         console.log("joining");
         joinn(socket, room);
