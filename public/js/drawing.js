@@ -3,8 +3,8 @@ var myColor = new Color(0, 0, 0);
 var myTool = "Path";
 var socket = io.connect('http://localhost:3000');
 var usersPaths = {};
-var myRoom = 0;
-var myId = Math.floor(Math.random() * 20);
+var myRoom = document.getElementById('room-id').innerHTML;
+var myId = document.getElementById('user-id').innerHTML;
 
 socket.on('path_request_u', function (id, point, color) {
     console.log('tez mostafa');
