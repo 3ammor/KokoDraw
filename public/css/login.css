@@ -1,7 +1,9 @@
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    /*background-color: #eee;*/
+    background-image: url("/images/11.jpg");
+    background-size: cover;
+
+    font-style: italic;
+
 }
 
 .form-signin {
