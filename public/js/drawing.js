@@ -3,6 +3,8 @@ var myColor = new Color(0, 0, 0);
 var myTool = "Path";
 var socket = io.connect('http://localhost:3000');
 var usersPaths = {};
+var myRoom = 0;
+var id = 0;
 
 socket.on('path_request_u', function (id, point, color) {
     console.log('tez mostafa');
@@ -42,7 +44,7 @@ socket.on('circle_u', function (point, size, color) {
 });
 
 socket.on('msg_u', function (id, msg) {
-    document.getElementById('tezy').innerHTML = id + ": " + msg;
+    document.getElementById('tezy').innerHTML =  msg;
 });
 
 socket.on('join:load_page', function (json) {
@@ -61,8 +63,7 @@ window.onload = function () {
     var rect;
     var size_;
     var tool = new Tool();
-    var myRoom = 0;
-    var id = 0;
+
 
     socket.emit('join', myRoom);
 
