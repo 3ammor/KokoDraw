@@ -6,36 +6,38 @@ var usersPaths = {};
 
 socket.on('path_request_u', function (id, point, color) {
     console.log('tez mostafa');
+    console.log(color);
     usersPaths[id] = new Path({
-        segments: [event.point],
+        segments: [new Point(point[1], point[2])],
         // Select the path, so we can see its segment points:
         fullySelected: false
     });
-    path.strokeColor = color;
-    path.strokeWidth = 10;
+    usersPaths[id].strokeColor = new Color(color[1], color[2], color[3]);
+    usersPaths[id].strokeWidth = 10;
 });
 
 socket.on('path_point_u', function (id, point) {
-    usersPaths[id].add(point);
+    usersPaths[id].add(new Point(point[1], point[2]));
 });
 
 socket.on('path_end_u', function (id) {
     usersPaths[id].simplify(10);
+    usersPaths[id] = null;
 });
 
 socket.on('rect_u', function (point, size, color) {
     new Path.Rectangle({
-        position: point,
+        position: new Point(point[1], point[2]),
         size: size,
-        fillColor: color
+        fillColor: new Color(color[1], color[2], color[3])
     });
 });
 
 socket.on('circle_u', function (point, size, color) {
     new Path.Circle({
-        center: point,
+        center: new Point(point[1], point[2]),
         radius: size,
-        fillColor: color
+        fillColor: new Color(color[1], color[2], color[3])
     });
 });
 

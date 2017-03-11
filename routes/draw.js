@@ -5,14 +5,15 @@ var double_p = require('./double_p.js');
 var paper = require('paper');
 
 
-exports.draw = function (room, point, id) {
+exports.draw = function (room, point, id, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
     paths[room][id] = new paper.Path({
-        segments: [point],
-        strokeColor: 'black',
-        fullySelected: true
+        segments: [new paper.Point(point[1], point[2])],
+        strokeColor: new paper.Color(color[1], color[2], color[3]),
+        fullySelected: false,
+        strokeWidth: 10
     });
 };
 
@@ -20,10 +21,10 @@ exports.add_point = function (room, point, id) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
-    paths[room][id].add(point);
+    paths[room][id].add(new paper.Point(point[1], point[2]));
 };
 
-exports.draw_end = function (room, point, id) {
+exports.draw_end = function (room, id) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();

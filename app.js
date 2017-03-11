@@ -104,7 +104,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('path_request', function (room, id, point, color) {
         console.log('es7a ya mo2men');
-        socket.emit('path_request_u', id, point, color);
+        io.in(room).emit('path_request_u', id, point, color);
         draw.draw(room, point, id, color);
     });
 
@@ -114,9 +114,9 @@ io.sockets.on('connection', function (socket) {
         draw.add_point(room, point, id);
     });
 
-    socket.on('path_end', function (room, id, point) {
-        io.in(room).emit('path_end_u', id, point);
-        draw.draw_end(room, point, id);
+    socket.on('path_end', function (room, id) {
+        io.in(room).emit('path_end_u', id);
+        draw.draw_end(room, id);
     });
 
     socket.on('join', function (room) {
@@ -159,8 +159,9 @@ function joinn(socket, room) {
 
     }
     else {
+        console.log('bitch better have my json');
         var project_json = projects[room].exportJSON();
-        socket.to(room).emit('join:load_page', project_json);
+        io.in(room).emit('join:load_page', project_json);
 
     }
     io.in(room).emit('join:end');
