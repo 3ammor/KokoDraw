@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var paper = require('paper');
 var passport = require('passport');
 var session = require('express-session');
-
+var db =require("./db/operation")
 var app = express();
 //creating server and connecting socket with server
 var server = require('http').createServer(app);
