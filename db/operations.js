@@ -64,3 +64,20 @@ function getJSON(token) {
         return null;
     }).catch(function (err) {return null;});
 }
+
+function getRoomToken(roomid) {
+    models.Room.findOne({
+        where: {
+            id: roomid
+        }
+    }).then(function (room) {
+        if (room != null) {
+            return room.token;
+        }
+        return null;
+    }).catch(function (err) {return null;});
+}
+
+function createUserInRoom(userid,roomid) {
+
+}

@@ -3,6 +3,7 @@ module.exports = function (app, passport) {
     var bcrypt = require('bcrypt');
     var models = require('../models/index');
     var passwordHash = require('password-hash');
+    var operations = require('../db/operations');
 
 // normal routes ===============================================================
 
@@ -21,6 +22,13 @@ module.exports = function (app, passport) {
         res.render('join');
     });
 
+    app.post('/joinroom', isLoggedIn, function (req, res){
+        if(req.roomid != null) {
+            token = operations.getRoomToken(req.roomid);
+            req.res.render('room', {userid: req.user.id, token: token});
+        }
+    });
+
     // LOGOUT ==============================
     app.get('/logout', function (req, res) {
         req.logout();
@@ -36,8 +44,8 @@ module.exports = function (app, passport) {
     });
     // Room =====================================
     app.get('/rooms', isLoggedIn, function (req, res) {
-        if(req.session['token'] != null)
-            res.render('room',{userid: req.user.id, token: req.session['token']});
+        if (req.session['token'] != null)
+            res.render('room', {userid: req.user.id, token: req.session['token']});
         else res.redirect('/join');
     });
 
