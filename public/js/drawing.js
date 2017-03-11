@@ -1,23 +1,65 @@
 paper.install(window);
 var myColor = new Color(0, 0, 0);
 var myTool = "Path";
+var socket = io.connect('http://localhost:3000');
+var usersPaths = {};
+
+socket.on('path_request_u', function (id, point, color) {
+    console.log('tez mostafa');
+    usersPaths[id] = new Path({
+        segments: [event.point],
+        // Select the path, so we can see its segment points:
+        fullySelected: false
+    });
+    path.strokeColor = color;
+    path.strokeWidth = 10;
+});
+
+socket.on('path_point_u', function (id, point) {
+    usersPaths[id].add(point);
+});
+
+socket.on('path_end_u', function (id) {
+    usersPaths[id].simplify(10);
+});
+
+socket.on('rect_u', function (point, size, color) {
+    new Path.Rectangle({
+        position: point,
+        size: size,
+        fillColor: color
+    });
+});
+
+socket.on('circle_u', function (point, size, color) {
+    new Path.Circle({
+        center: point,
+        radius: size,
+        fillColor: color
+    });
+});
+
+socket.on('join:load_page', function (json) {
+    console.log('.......................');
+    paper.project.importJSON(json)
+});
 
 window.onload = function () {
     document.getElementById("myCanvas").setAttribute('width', window.innerWidth * 0.96);
     document.getElementById("myCanvas").setAttribute('height', window.innerHeight * 0.92);
     paper.setup('myCanvas');
 
-    // Create a simple drawing tool:
 
     var path;
     var circle;
     var rect;
     var size_;
-    var socket = io.connect('http://localhost:3000');
     var tool = new Tool();
-    var usersPaths = {};
     var myRoom = 0;
     var id = 0;
+
+    socket.emit('join', myRoom);
+
 
     tool.onMouseDown = function (event) {
 
@@ -87,43 +129,7 @@ window.onload = function () {
     };
 
 
-    socket.on('path_request_u', function (id, point, color) {
-        usersPaths[id] = new Path({
-            segments: [event.point],
-            // Select the path, so we can see its segment points:
-            fullySelected: false
-        });
-        path.strokeColor = color;
-        path.strokeWidth = 10;
-    });
 
-    socket.on('path_point_u', function (id, point) {
-        usersPaths[id].add(point);
-    });
-
-    socket.on('path_end_u', function (id) {
-        usersPaths[id].simplify(10);
-    });
-
-    socket.on('rect_u', function (point, size, color) {
-        new Path.Rectangle({
-            position: point,
-            size: size,
-            fillColor: color
-        });
-    });
-
-    socket.on('circle_u', function (point, size, color) {
-        new Path.Circle({
-            center: point,
-            radius: size,
-            fillColor: color
-        });
-    });
-
-    socket.on('join:load_page', function (json) {
-        paper.project.importJSON(json)
-    });
 
 };
 
@@ -134,3 +140,4 @@ function changeColor(r, g, b) {
 function changeMyTool(t) {
     myTool = t;
 }
+
