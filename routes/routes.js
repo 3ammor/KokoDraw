@@ -23,8 +23,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/joinroom', isLoggedIn, function (req, res){
-        if(req.roomid != null) {
-            var token = operations.getRoomToken(req.roomid);
+        if(req.token != null) {
             req.res.render('room', {userid: req.user.id, token: token});
         }
     });
