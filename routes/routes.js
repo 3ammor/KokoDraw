@@ -33,14 +33,8 @@ module.exports = function (app, passport) {
     });
 
     // Room =====================================
-    app.get('/rooms/:id', isLoggedIn, function (req, res) {
-        models.UserRoom.findOne({
-            where: {
-                UserId: req.user.id,
-                RoomId: req.params.id
-            }.then(function (room) {
-
-            })
+    app.get('/rooms', function (req, res) {
+        res.render('room');
     });
 
 
