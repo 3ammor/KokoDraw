@@ -26,10 +26,16 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
-    // Room =====================================
-    app.get('/rooms', function (req, res) {
+
+    // Create and join ================================================================
+    app.post('/create', isLoggedIn, function (req, res) {
         res.render('room');
     });
+    // Room =====================================
+    app.get('/rooms', isLoggedIn, function (req, res) {
+        res.render('room');
+    });
+
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
