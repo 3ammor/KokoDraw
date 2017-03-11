@@ -3,12 +3,15 @@ var models = require('../models/index');
 exports.roomCreateUpdate = function (user_id, token, json) {
 
     jsonString = JSON.stringify(json);
+    console.log(token)
 
     models.Room.findOne({
         where: {
             name: token
         }}).then(function (room) {
-            if (room != null) {
+
+        if (room != null) {
+                console.log("kosy")
                 room.updateAttributes({data: jsonString}).success(function () {
                     return 0;
                 });

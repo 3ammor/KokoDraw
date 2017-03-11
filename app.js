@@ -116,16 +116,16 @@ io.sockets.on('connection', function (socket) {
     socket.on('msg', function (room, id, msg) {
         io.in(room).emit('msg_u', id, msg);
     });
-    socket.on('join', function (room) {
+    socket.on('join', function (room,id) {
         console.log("joining");
-        joinn(socket, room);
+        joinn(socket, room,id);
     });
 
 
 });
 
 
-function joinn(socket, room) {
+function joinn(socket, room,id) {
     console.log("joininggggggggggggg");
     socket.join(room);
     paths = double_p.paths;
@@ -143,8 +143,9 @@ function joinn(socket, room) {
             paths[room] = {};
             projects[room] = new paper.Project();
             console.log(room);
+             db.roomCreateUpdate(id,room,projects[room].exportJSON())
 
-        }
+         }
 
        else {
         project_json= db.getJSON(room)
