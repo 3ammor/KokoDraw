@@ -5,3 +5,9 @@ body {
 canvas {
     background-color: white;
 }
+
+.btn {
+    background-color: #fcf8e3;
+    font-family: Helvetica, Arial;
+    font-style: oblique;
+}

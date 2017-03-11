@@ -1,7 +1,6 @@
 module.exports = function (app, passport) {
     require('../config/passport');
     var bcrypt = require('bcrypt');
-    var passwordHash = require('password-hash');
     var models = require('../models/index');
 
 // normal routes ===============================================================
@@ -57,8 +56,16 @@ module.exports = function (app, passport) {
     app.post('/sign_up', function (req, res) {
 
         xusername = req.body.username;
+        xfullname = req.body.fullname;
         xemail = req.body.email;
         opassword = req.body.password;
+
+        var english = /^[A-Za-z ']*$/;
+        if (!english.test(xfullname)) {
+            req.flash('error3', 'Name must contain only english letters.');
+            res.redirect('/');
+            return;
+        }
 
         if (opassword.length < 8) {
             req.flash('error2', 'Password must be at least 8 characters long.');
@@ -72,6 +79,7 @@ module.exports = function (app, passport) {
 
         models.User.create({
             name: xusername,
+            fullname: xfullname,
             email: xemail,
             password: opassword
         }).then(function (result) {
