@@ -3,4 +3,4 @@
  */
 
 exports.paths = {};
-exports.projects  = {};
+exports.projects = {};
