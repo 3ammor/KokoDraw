@@ -126,11 +126,9 @@ window.onload = function () {
         } else if (myTool == "Rect") {
             socket.emit('rect', myRoom, id, rect.position, size_)
         } else {
-            socket.emit('rect', myRoom, id, circle.position, size_)
+            socket.emit('circle', myRoom, id, circle.position, size_)
         }
     };
-
-
 
 
 };
