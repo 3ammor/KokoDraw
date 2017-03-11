@@ -16,7 +16,7 @@ module.exports = function (app, passport) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/join', function (req, res) {
+    app.get('/join', isLoggedIn, function (req, res) {
         res.render('join');
     });
 
@@ -29,12 +29,15 @@ module.exports = function (app, passport) {
 
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
-        
+        var now = new Date();
+        req.session['token'] = passwordHash.generate(now.getTime().toString());
+        res.redirect('/rooms/');
     });
-
     // Room =====================================
-    app.get('/rooms', function (req, res) {
-        res.render('room');
+    app.get('/rooms', isLoggedIn, function (req, res) {
+        if(req.session['token'] != null)
+            res.render('room',{userid: req.user.id, token: req.session['token']});
+        else res.redirect('/join');
     });
 
 

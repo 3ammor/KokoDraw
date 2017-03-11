@@ -4,9 +4,8 @@ module.exports = {
     return queryInterface.createTable('Rooms', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       data: {
         type: Sequelize.STRING
