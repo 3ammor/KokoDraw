@@ -113,4 +113,4 @@ exports.getUsername = function (userid, callback) {
 
 exports.getRoomsForUser = function (userid) {
 
-}
+};

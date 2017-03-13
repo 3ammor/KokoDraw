@@ -101,6 +101,11 @@
                             <button type="button" class="btn btn-default">Leave room</button>
                         </form>
                     </div>
+                    <div class="btn-group" role="group">
+                        <form class="" action='logout' method="POST">
+                            <button type="button" class="btn btn-default">Log out</button>
+                        </form>
+                    </div>
                 </div>
                 <p><%= token %></p>
             </div>
@@ -112,6 +117,7 @@
     </div>
 </div>
 <p hidden id="user-id"><%= userid %></p>
+<p hidden id="user-name"><%= username %></p>
 <p hidden id="room-id"><%= token %></p>
 </body>
 </html>

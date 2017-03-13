@@ -5,9 +5,10 @@ var socket = io.connect('http://localhost:3000');
 var usersPaths = {};
 var myRoom = 0;
 var myId = 0;
+var myUsername = 0;
 
 socket.on('path_request_u', function (id, point, color) {
-     console.log(color);
+    console.log(color);
     usersPaths[id] = new Path({
         segments: [new Point(point[1], point[2])],
         // Select the path, so we can see its segment points:
@@ -44,24 +45,7 @@ socket.on('circle_u', function (point, size, color) {
 
 socket.on('msg_u', function (id, msg) {
     if (id != myId) {
-        var msg_full = '<li class="mar-btm">' +
-            '<div class="media-right">' +
-            '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
-            '</div>' +
-            '<div class="media-body pad-hor speech-right">' +
-            '<div class="speech">' +
-            '<a href="#" class="media-heading">Mra shrmota</a>' +
-            '<p>' +
-            msg +
-            '</p>' +
-            '<p class="speech-time">' +
-            '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
-            '</p>' +
-            '</div>' +
-            '</div>' +
-            '</li>';
-
-        $(".chat-block").append(msg_full);
+        $(".chat-block").append(msg);
         $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
         $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
     }
@@ -75,6 +59,7 @@ socket.on('join:load_page', function (json) {
 window.onload = function () {
 
     myId = document.getElementById('user-id').innerHTML;
+    myUsername = document.getElementById('user-name').innerHTML;
     myRoom = document.getElementById('room-id').innerHTML;
 
     document.getElementById("chat_height").setAttribute('style', 'height: ' + String(parseInt(window.innerHeight * 0.87) + "px"));
@@ -175,28 +160,48 @@ function changeMyTool(t) {
 function sendMessage() {
     var msg = document.getElementById('input');
 
-    var msg_full = '<li class="mar-btm">' +
+    var username = myUsername;
+    var time = new Date();
+
+    var msg_full_me = '<li class="mar-btm">' +
         '<div class="media-left">' +
-        '<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
+        '<img src="/img/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
         '</div>' +
         '<div class="media-body pad-hor">' +
         '<div class="speech">' +
-        '<a href="#" class="media-heading">Moemen</a>' +
+        '<a href="#" class="media-heading">' + username + '</a>' +
         '<p>' +
         msg.value +
         '</p>' +
         '<p class="speech-time">' +
-        '<i class="fa fa-clock-o fa-fw"></i> 09:32' +
+        '<i class="fa fa-clock-o fa-fw"></i> ' + time +
         '</p>' +
         '</div>' +
         '</div>' +
         '</li>';
 
-    $(".chat-block").append(msg_full);
+    var msg_full_them = '<li class="mar-btm">' +
+        '<div class="media-right">' +
+        '<img src="/img/avatar1.png" class="img-circle img-sm" alt="Profile Picture">' +
+        '</div>' +
+        '<div class="media-body pad-hor speech-right">' +
+        '<div class="speech">' +
+        '<a href="#" class="media-heading">' + username + '</a>' +
+        '<p>' +
+        msg.value +
+        '</p>' +
+        '<p class="speech-time">' +
+        '<i class="fa fa-clock-o fa-fw"></i> ' + time +
+        '</p>' +
+        '</div>' +
+        '</div>' +
+        '</li>';
+
+    $(".chat-block").append(msg_full_me);
     $('.chat-block').animate({scrollTop: $('.chat-block li').prop("scrollHeight")}, 500);
     $('.nano-content').animate({scrollTop: $(".chat-block li").last().offset().top}, 'slow');
 
-    socket.emit('msg', myRoom, myId, msg.value);
+    socket.emit('msg', myRoom, myId, msg_full_them);
     msg.value = "";
 }
 
