@@ -46,7 +46,7 @@ module.exports = function (app, passport) {
     app.get('/rooms', isLoggedIn, function (req, res) {
         if (req.session['token'] != null)
         {
-            db.getUsername(req.user.id, function (username) {
+            operations.getUsername(req.user.id, function (username) {
                 res.render('room', {userid: req.user.id, username: username, token: req.session['token']});
             });
         }

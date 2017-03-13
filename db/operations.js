@@ -93,22 +93,23 @@ exports.getRoomToken = function (roomid) {
     }).catch(function (err) {
         return null;
     });
-}
+};
 
-exports.getUsername = function (userid) {
+exports.getUsername = function (userid, callback) {
     models.User.findOne({
         where: {
             id: userid
         }
     }).then(function (user) {
         if (user != null) {
-            return callback(user.username);
+            console.log(user.name);
+            return callback(user.name);
         }
         return callback(null);
     }).catch(function (err) {
         return callback(null);
     });
-}
+};
 
 exports.getRoomsForUser = function (userid) {
 
