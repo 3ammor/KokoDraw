@@ -129,16 +129,13 @@ function joinn(socket, room, id) {
     projects = double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
-
-        var checker = {check: false};
-        db.checkExistence(room, checker, function () {
-            if (checker.check) {
-                var project_json = {json: null};
-                db.getJSON(room, project_json, function () {
+        db.checkExistence(room, function (checker) {
+            if (checker) {
+                db.getJSON(room, function (project_json) {
                     paths[room] = {};
                     projects[room] = new paper.Project();
-                    projects[room].importJSON(project_json.json);
-                    io.in(room).emit('join:load_page', project_json.json);
+                    projects[room].importJSON(project_json);
+                    io.in(room).emit('join:load_page', project_json);
                 });
             }
             else {

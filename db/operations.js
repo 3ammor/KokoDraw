@@ -43,7 +43,7 @@ exports.roomCreateUpdate = function (user_id, token, json) {
 };
 
 
-exports.checkExistence = function (token, checker, callback) {
+exports.checkExistence = function (token, callback) {
     models.Room.findOne({
         where: {
             name: token
@@ -51,32 +51,28 @@ exports.checkExistence = function (token, checker, callback) {
     }).then(function (room) {
         if (room != null) {
             console.log("checker true");
-            checker.check = true;
-            return callback();
+            return callback(true);
         }
-        checker.check = false;
-        return callback();
+        console.log("checker false");
+        return callback(false);
     }).catch(function (err) {
-        checker.check = false;
-        return callback();
+        return callback(false);
     });
 };
 
-exports.getJSON = function (token, ret, callback) {
+exports.getJSON = function (token, callback) {
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
         if (room != null) {
-            ret.json = JSON.parse(room.data);
-            return callback();
+            ret = JSON.parse(room.data);
+            return callback(ret);
         }
-        ret.json = null;
-        return callback();
+        return callback(null);
     }).catch(function (err) {
-        ret.json = null;
-        return callback();
+        return callback(null);
     });
 };
 
