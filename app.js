@@ -82,14 +82,12 @@ var double_p = require('./routes/double_p.js');
 var draw = require('./routes/draw.js');
 
 io.sockets.on('connection', function (socket) {
-    console.log('tezy');
     socket.on('disconnect', function () {
         console.log("disconnecting");
     });
 
 
     socket.on('path_request', function (room, id, point, color) {
-        console.log('es7a ya mo2men');
         io.in(room).emit('path_request_u', id, point, color);
         draw.draw(room, point, id, color);
     });
