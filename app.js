@@ -158,7 +158,6 @@ function joinn(socket, room, id) {
         io.in(room).emit('join:load_page', project_json);
 
     }
-    io.in(room).emit('join:end');
-}
+ }
 
 module.exports = app;

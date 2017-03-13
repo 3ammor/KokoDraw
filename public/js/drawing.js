@@ -7,8 +7,7 @@ var myRoom = 0;
 var myId = 0;
 
 socket.on('path_request_u', function (id, point, color) {
-    console.log('tez mostafa');
-    console.log(color);
+     console.log(color);
     usersPaths[id] = new Path({
         segments: [new Point(point[1], point[2])],
         // Select the path, so we can see its segment points:
