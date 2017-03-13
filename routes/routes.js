@@ -25,6 +25,12 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.post('/selectroom', isLoggedIn, function (req, res) {
+        operations.getUsername(req.user.id, function (username) {
+            res.render('room', {userid: req.user.id, username: username, token: req.body.btn});
+        });
+    });
+
     app.post('/joinroom', isLoggedIn, function (req, res) {
         if (req.body.token != null) {
             req.session['token'] = req.body.token;
@@ -46,7 +52,7 @@ module.exports = function (app, passport) {
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
         var now = new Date();
-        req.session['token'] = passwordHash.generate(now.getTime().toString());
+        req.session['token'] = passwordHash.generate(now.getTime().toString().substring(4));
         res.redirect('/rooms/');
     });
     // Room =====================================

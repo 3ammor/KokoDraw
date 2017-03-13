@@ -46,9 +46,12 @@
         <div class="col-md-3">
             <h1> Your ROOMS </h1>
             <div class="list-group">
-                <% rooms.forEach(function(value){ %>
-                    <a href="#" class="list-group-item list-group-item-action"> <%= value %> </a>
-                <% }); %>
+                    <form class="form-signin" action='selectroom' method="POST">
+                        <% var i=1;%>
+                        <% rooms.forEach(function(value){ %>
+                            <button value=<%= value %> class="list-group-item list-group-item-action" name="btn" type="submit"> My Room #<%=i%> </button>
+                        <% i++;}); %>
+                    </form>
             </div>
         </div>
         <div class="col-md-1 ">
