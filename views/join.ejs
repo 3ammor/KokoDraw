@@ -28,29 +28,30 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-
-            </br>
-            </br>
-            </br>
-            </br>
             <div class="form-horizontal">
                 <label for="room">Room ID </label>
                 <div class="form-inline">
                     <form class="form-signin" action='joinroom' method="POST">
                         <input type="text" name="token" value="" class="form-control" placeholder="Enter the room TOKEN"
                                style="width:84%" autofocus required>
-                        <button class="btn" type="submit">Join</button>
+                        <button class="btn" type="submit">Join a existing room</button>
                     </form>
                 </div>
             </div><!-- form-group -->
-
-            </br>
-            </br>
             <form class="form-signin" action='create' method="POST">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Create new room</button>
             </form>
 
         </div><!-- col-md-4 -->
+        <div class="col-md-3">
+            <h1> Your ROOMS</h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">Room 1</a>
+                <a href="#" class="list-group-item list-group-item-action">Room 2</a>
+                <a href="#" class="list-group-item list-group-item-action">Room 3</a>
+                <a href="#" class="list-group-item list-group-item-action">Room 4</a>
+            </div>
+        </div>
 
     </div><!-- row -->
 </div>
