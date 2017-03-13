@@ -145,7 +145,7 @@ function joinn(socket, room, id) {
                 });
             }
             else {
-                console.log("the project have been found ");
+                console.log("the project have been found in database");
                 paths = double_p.paths;
                 projects = double_p.projects;
                 paths[room] = {};
@@ -156,7 +156,7 @@ function joinn(socket, room, id) {
         });
     }
     else {
-        console.log('bitch better have my json');
+        console.log("the project have been found in dict");
         var project_json = projects[room].exportJSON();
         io.in(room).emit('join:load_page', project_json);
 
