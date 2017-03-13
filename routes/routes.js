@@ -21,7 +21,7 @@ module.exports = function (app, passport) {
     // PROFILE SECTION =========================
     app.get('/join', isLoggedIn, function (req, res) {
         operations.getRoomsForUser(req.user.id, function (rooms) {
-            res.render('join', { rooms: rooms});
+                res.render('join', {rooms: rooms, error5: req.flash('error5')});
         });
     });
 
@@ -45,6 +45,12 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
+    app.post('/logout', isLoggedIn, function (req, res) {
+        req.logout();
+        req.session['token'] = null;
+        res.redirect('/');
+    });
+
     app.post('/rooms/leaveroom', isLoggedIn, function (req, res) {
 
     });
@@ -52,8 +58,19 @@ module.exports = function (app, passport) {
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
         var now = new Date();
-        req.session['token'] = passwordHash.generate(now.getTime().toString().substring(4));
-        res.redirect('/rooms/');
+        req.session['token'] = req.body.token2;
+        operations.checkExistence(req.body.token2, function (checker) {
+            if (checker) {
+                console.log("create ok");
+                req.flash('error5', 'A room with the same name already exists.');
+                res.redirect('/join');
+                return;
+            }
+            else {
+                console.log("create not ok");
+                res.redirect('/rooms/');
+            }
+        });
     });
     // Room =====================================
     app.get('/rooms', isLoggedIn, function (req, res) {

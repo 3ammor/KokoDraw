@@ -39,7 +39,10 @@
                 </div>
             </div><!-- form-group -->
             <form class="form-signin" action='create' method="POST">
+                <input type="text" name="token2" value="" class="form-control" placeholder="Enter the room TOKEN"
+                       style="width:84%" autofocus required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Create new room</button>
+                <span class="error text-danger"> <%= (error5.length > 0) ? error5 : '' %> </span>
             </form>
 
         </div><!-- col-md-4 -->
@@ -49,15 +52,15 @@
                     <form class="form-signin" action='selectroom' method="POST">
                         <% var i=1;%>
                         <% rooms.forEach(function(value){ %>
-                            <button value=<%= value %> class="list-group-item list-group-item-action" name="btn" type="submit"> My Room #<%=i%> </button>
+                            <button value=<%= value %> class="list-group-item list-group-item-action" name="btn" type="submit"> <%= value %> </button>
                         <% i++;}); %>
                     </form>
             </div>
         </div>
         <div class="col-md-1 ">
             <div class="btn-group" role="group">
-                <form class="" action='logout' method="POST">
-                    <button type="button" class="btn btn-default">Log out</button>
+                <form class="" action='logout' method="POST" role="form">
+                    <button class="btn btn-default" type="submit">Log out</button>
                 </form>
             </div>
         </div>
