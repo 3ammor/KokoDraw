@@ -10,7 +10,7 @@ exports.roomCreateUpdate = function (user_id, token, json) {
             name: token
         }}).then(function (room) {
 
-        if (room != null) {
+        if (room != null && jsonString != "\"[]\"") {
                 console.log("kosy");
                 room.updateAttributes({data: jsonString}).success(function () {
                     return 0;
@@ -50,33 +50,42 @@ exports.checkExistence = function (token, checker, callback) {
             name: token
         }
     }).then(function (room) {
-        console.log("a7a 2");
         if(room != null) {
             console.log("checker true");
-            checker = true;
+            checker.check = true;
+            callback();
+            return;
         }
-        console.log("checker false");
-        checker = false;
+        checker.check = false;
+        callback();
+        return;
     }).catch(function (err) {
-        checker = false;
+        checker.check = false;
+        callback();
+        return;
     });
-    callback();
 };
 
-exports.getJSON = function (token) {
+exports.getJSON = function (token, ret, callback) {
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
         if (room != null) {
-            return JSON.parse(room.data);
+            ret.json = JSON.parse(room.data);
+            callback();
+            return;
         }
-        return null;
+        ret.json = null;
+        callback();
+        return;
     }).catch(function (err) {
-        return null;
+        ret.json = null;
+        callback();
+        return;
     });
-}
+};
 
 exports.getRoomToken=function (roomid) {
     models.Room.findOne({

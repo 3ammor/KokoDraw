@@ -133,10 +133,20 @@ function joinn(socket, room, id) {
     var project = double_p.projects[room];
     if (!project) {
 
-        var checker = false;
-        db.checkExistence(room, checker, function() {
-
-            if(checker) {
+        var checker = {check: false};
+        db.checkExistence(room, checker, function () {
+            console.log("abl checker");
+            if (checker.check) {
+                console.log("a7a checker");
+                var project_json = {json: null};
+                db.getJSON(room, project_json, function () {
+                    paths[room] = {};
+                    projects[room] = new paper.Project();
+                    projects[room].importJSON(project_json.json);
+                    io.in(room).emit('join:load_page', project_json.json);
+                });
+            }
+            else {
                 console.log("el project el kos");
                 paths = double_p.paths;
                 projects = double_p.projects;
@@ -145,17 +155,7 @@ function joinn(socket, room, id) {
                 console.log(room);
                 db.roomCreateUpdate(id, room, projects[room].exportJSON());
             }
-
-            else {
-                project_json = db.getJSON(room)
-                projects[room] = new paper.Project();
-                projects[room].importJSON(project_json);
-                io.in(room).emit('join:load_page', project_json);
-            }
         });
-
-
-
     }
     else {
         console.log('bitch better have my json');

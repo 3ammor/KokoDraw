@@ -3,7 +3,7 @@
  */
 var double_p = require('./double_p.js');
 var paper = require('paper');
-var db =require("../db/operations")
+var db =require("../db/operations");
 
 
 exports.draw = function (room, point, id, color) {
