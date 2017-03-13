@@ -107,24 +107,65 @@ exports.getUsername = function (userid, callback) {
     });
 };
 
-exports.getRoomsForUser = function (userid,callback) {
+exports.getRoomsForUser = function (userid, callback) {
     models.User.findAll({
         where: {
             'id': userid
         },
-        include: [{model: models.Room, as: models.Room.tableName, attributes: ['name'] }],
+        include: [{model: models.Room, as: models.Room.tableName, attributes: ['name']}],
         attributes: ['id'],
-        raw : true
+        raw: true
     }).then(function (rooms) {
         if (rooms != null) {
             var arr = [];
-            rooms.forEach(function(room){
-                arr.push(room["Rooms.name"]);
+            rooms.forEach(function (room) {
+                if (room["Rooms.name"] != null)
+                    arr.push(room["Rooms.name"]);
             });
             return callback(arr);
         }
         return callback(null);
     }).catch(function (err) {
         return callback(null);
+    });
+};
+
+exports.leaveRoom = function (userid, token, callback) {
+    models.Room.findOne({
+        where: {
+            'name': token
+        }
+    }).then(function (room) {
+        models.User.findOne({
+            where: {
+                'id': userid
+            }
+        }).then(function (user) {
+            user.removeRoom(room);
+            return callback();
+        }).catch(function (err) {
+        });
+        return callback();
+    }).catch(function (err) {
+    });
+};
+
+exports.joinRoom = function (userid, token, callback) {
+    models.Room.findOne({
+        where: {
+            'name': token
+        }
+    }).then(function (room) {
+        models.User.findOne({
+            where: {
+                'id': userid
+            }
+        }).then(function (user) {
+            user.addRoom(room);
+            return callback();
+        }).catch(function (err) {
+        });
+        return callback();
+    }).catch(function (err) {
     });
 };

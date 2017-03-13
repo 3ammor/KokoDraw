@@ -21,7 +21,15 @@ module.exports = function (app, passport) {
     // PROFILE SECTION =========================
     app.get('/join', isLoggedIn, function (req, res) {
         operations.getRoomsForUser(req.user.id, function (rooms) {
-                res.render('join', {rooms: rooms, error5: req.flash('error5'), error6: req.flash('error6')});
+            console.log("lengttttttttthhhhhhhh " + rooms.length);
+            if (rooms.length === 0)
+                req.flash('error7', 'No joined rooms to display.');
+            res.render('join', {
+                rooms: rooms,
+                error5: req.flash('error5'),
+                error6: req.flash('error6'),
+                error7: req.flash('error7')
+            });
         });
     });
 
@@ -43,7 +51,9 @@ module.exports = function (app, passport) {
                 }
                 else {
                     console.log("join ok");
-                    res.redirect('/rooms');
+                    operations.joinRoom(req.user.id, req.body.token, function () {
+                        res.redirect('/rooms');
+                    });
                 }
             });
         }
@@ -62,8 +72,11 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
-    app.post('/rooms/leaveroom', isLoggedIn, function (req, res) {
-        
+    app.post('/leaveroom', isLoggedIn, function (req, res) {
+        console.log("------------------> hey" + req.session['token']);
+        operations.leaveRoom(req.user.id, req.session['token'], function () {
+            res.redirect('/join');
+        });
     });
 
     app.post('/export', isLoggedIn, function (req, res) {
