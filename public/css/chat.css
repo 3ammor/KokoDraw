@@ -89,6 +89,8 @@
 }
 
 .speech {
+    word-wrap: break-word;
+    width: 100%;
     position: relative;
     background: #b7dcfe;
     color: #317787;

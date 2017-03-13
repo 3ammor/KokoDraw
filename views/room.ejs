@@ -31,12 +31,8 @@
 <div class="fluid-container">
     <div class="row" style="margin: 0px; ">
         <div class="col-sm-3">
-            <div class="panel">
-                <!--Heading-->
-                <form class="form-signin" action='export' method="POST">
-                    <button class="btn btn-primary btn-block" type="submit">Export to Image</button>
-                </form>
-                <h5 style="text-align: center"><strong>Chat</strong></h5>
+            <div class="panel" style="background-color: #4D394B;padding-top: 20px">
+                <h4 style="text-align: center;color:white;"><strong><%= token %></strong></h4>
                 <!--Widget body-->
                 <div class="nano has-scrollbar" id="chat_height">
                     <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
@@ -47,13 +43,13 @@
                 </div>
 
                 <!--Widget footer-->
-                <div class="panel-footer">
+                <div class="panel-footer" style="background-color: #4D394B;">
                     <div class="row">
                         <div class="col-xs-9">
                             <input id='input' type="text" placeholder="Enter your text" class="form-control chat-input">
                         </div>
                         <div class="col-xs-3">
-                            <button class="chat-btn btn-primary btn-block" type="submit" onclick="sendMessage()">Send</button>
+                            <button class="btn btn-default" type="submit" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
                 </div>
@@ -61,51 +57,65 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <h4><strong><%= token %></strong></h4>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" onclick="changeMyTool('Path')"><i class="fa-paint-brush"></i> Path</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" onclick="changeMyTool('Circle')"><i class="fa-circle"></i> Circle</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" onclick="changeMyTool('Rect')"><i class="fa-square"></i> Square</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" onclick="changeColor(1, 1, 1)"><i class="fa-eraser"></i> ERASER</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" onclick="changeColor(0, 0, 0)">BLACK</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:red;" onclick="changeColor(1, 0, 0)">RED</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:green;" onclick="changeColor(0, 1, 0)">GREEN</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:blue;" onclick="changeColor(0, 0, 1)">BLUE</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:yellow;" onclick="changeColor(1, 1, 0)">YELLOW</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:cyan;" onclick="changeColor(0, 1, 1)">CYAN</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" style="color:magenta;" onclick="changeColor(1, 0, 1)">MAGENTA</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <form class="" action='leaveroom' method="POST" role="form">
-                            <button class="btn btn-default" type="submit">Leave Room</button>
-                        </form>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <form class="" action='logout' method="POST" role="form">
-                            <button class="btn btn-default" type="submit">Log out</button>
-                        </form>
-                    </div>
+                <br>
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shapes <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="" onclick="changeMyTool('Path')"><i class="fa-paint-brush"></i> Path</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" onclick="changeMyTool('Circle')"><i class="fa-circle"></i> Circle</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" onclick="changeMyTool('Rect')"><i class="fa-square"></i> Square</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Colors <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="" onclick="changeColor(0, 0, 0)">BLACK</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:red;" onclick="changeColor(1, 0, 0)">RED</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:green;" onclick="changeColor(0, 1, 0)">GREEN</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:blue;" onclick="changeColor(0, 0, 1)">BLUE</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:yellow;" onclick="changeColor(1, 1, 0)">YELLOW</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:cyan;" onclick="changeColor(0, 1, 1)">CYAN</button>
+                        </li>
+                        <li>
+                            <button type="button" class="" style="color:magenta;" onclick="changeColor(1, 0, 1)">MAGENTA</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="changeColor(1, 1, 1)"><i class="fa-eraser"></i> Eraser</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <form class="form-signin" action='export' method="POST">
+                        <button class="btn btn-default" type="submit">Export to Image</button>
+                    </form>
+                </div>
+                <div class="btn-group" role="group">
+                    <form class="" action='leaveroom' method="POST" role="form">
+                        <button class="btn btn-default" type="submit">Leave Room</button>
+                    </form>
+                </div>
+                <div class="btn-group" role="group">
+                    <form class="" action='logout' method="POST" role="form">
+                        <button class="btn btn-default" type="submit">Log out</button>
+                    </form>
                 </div>
             </div>
             <br>
