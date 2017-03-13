@@ -44,7 +44,6 @@ exports.roomCreateUpdate = function (user_id, token, json) {
 
 
 exports.checkExistence = function (token, checker, callback) {
-    console.log("a7aaaaaaaaaaa");
     models.Room.findOne({
         where: {
             name: token

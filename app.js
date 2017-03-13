@@ -126,7 +126,7 @@ io.sockets.on('connection', function (socket) {
 
 
 function joinn(socket, room, id) {
-    console.log("joininggggggggggggg");
+    console.log("joining - - - - ");
     socket.join(room);
     paths = double_p.paths;
     projects = double_p.projects;
@@ -135,9 +135,7 @@ function joinn(socket, room, id) {
 
         var checker = {check: false};
         db.checkExistence(room, checker, function () {
-            console.log("abl checker");
             if (checker.check) {
-                console.log("a7a checker");
                 var project_json = {json: null};
                 db.getJSON(room, project_json, function () {
                     paths[room] = {};
@@ -147,7 +145,7 @@ function joinn(socket, room, id) {
                 });
             }
             else {
-                console.log("el project el kos");
+                console.log("the project have been found ");
                 paths = double_p.paths;
                 projects = double_p.projects;
                 paths[room] = {};
