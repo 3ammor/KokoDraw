@@ -7,6 +7,7 @@ var db =require("../db/operations")
 
 
 exports.draw = function (room, point, id, color) {
+    //console.log("log is here: " + room + " " + point + " " + id + " " + color);
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();

@@ -43,27 +43,24 @@ exports.roomCreateUpdate = function (user_id, token, json) {
 };
 
 
-exports.checkExistence = function (token) {
+exports.checkExistence = function (token, checker, callback) {
     console.log("a7aaaaaaaaaaa");
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
-        console.log("oooh yaaaah");
-         if (room != null) {
-            console.log("ah");
-
-            return true;
+        console.log("a7a 2");
+        if(room != null) {
+            console.log("checker true");
+            checker = true;
         }
-        console.log("la");
-        return false;
-
+        console.log("checker false");
+        checker = false;
     }).catch(function (err) {
-        console.log("console 3m hosny");
-        return false;
+        checker = false;
     });
-    console.log("hey apple!");
+    callback();
 };
 
 exports.getJSON = function (token) {
