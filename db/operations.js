@@ -107,15 +107,21 @@ exports.getUsername = function (userid, callback) {
     });
 };
 
-exports.getRoomsForUser = function (userid) {
-    models.User.findOne({
+exports.getRoomsForUser = function (userid,callback) {
+    models.User.findAll({
         where: {
-            id: userid
-        }
-    }).then(function (user) {
-        if (user != null) {
-            console.log(user.name);
-            return callback(user.name);
+            'id': userid
+        },
+        include: [{model: models.Room, as: models.Room.tableName, attributes: ['name'] }],
+        attributes: ['id'],
+        raw : true
+    }).then(function (rooms) {
+        if (rooms != null) {
+            var arr = [];
+            rooms.forEach(function(room){
+                arr.push(room["Rooms.name"]);
+            });
+            return callback(arr);
         }
         return callback(null);
     }).catch(function (err) {

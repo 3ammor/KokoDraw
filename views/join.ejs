@@ -46,10 +46,9 @@
         <div class="col-md-3">
             <h1> Your ROOMS </h1>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">Room 1</a>
-                <a href="#" class="list-group-item list-group-item-action">Room 2</a>
-                <a href="#" class="list-group-item list-group-item-action">Room 3</a>
-                <a href="#" class="list-group-item list-group-item-action">Room 4</a>
+                <% rooms.forEach(function(value){ %>
+                    <a href="#" class="list-group-item list-group-item-action"> <%= value %> </a>
+                <% }); %>
             </div>
         </div>
         <div class="col-md-1 ">

@@ -20,7 +20,9 @@ module.exports = function (app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/join', isLoggedIn, function (req, res) {
-        res.render('join');
+        operations.getRoomsForUser(req.user.id, function (rooms) {
+            res.render('join', { rooms: rooms});
+        });
     });
 
     app.post('/joinroom', isLoggedIn, function (req, res) {
@@ -37,6 +39,9 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
+    app.post('/rooms/leaveroom', isLoggedIn, function (req, res) {
+
+    });
 
     // Create and join ================================================================
     app.post('/create', isLoggedIn, function (req, res) {
