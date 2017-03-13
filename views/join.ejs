@@ -33,8 +33,8 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <form class="form-signin" action='selectroom' method="POST">
-                            <% rooms.forEach(function(value){ if(value !== ""){%>
-                            <button value="<%= value %>" class="list-group-item list-group-item-action" name="btn" type="submit"> <%= value %> </button>
+                            <% rooms.forEach(function(value){ if(value !== ""){ %>
+                            <button value="<%= value %>" class="list-group-item list-group-item-action btn-op" name="btn" type="submit"> <%= value %> </button>
                             <% }}); %>
                         </form>
                         <span class="text"> <%= (error7.length > 0) ? error7 : '' %> </span>
@@ -43,34 +43,35 @@
             </div>
         </div>
         <div class="col-md-4 col-md-offset-3">
-            <h2 class="home-title"><strong>Dashboard</strong></h2>
-            <div class="form-horizontal">
-                <label for="room" style="padding-top: 60px;">Join an existing room</label>
-                <div class="form-inline">
-                    <form class="form-signin" action='joinroom' method="POST">
-                        <input type="text" name="token" value="" class="form-control" placeholder="Existing room name"
-                               style="width:100%" autofocus required>
-                        <button class="btn btn-primary btn-block" type="submit">Join</button>
-                        <span class="error text-danger"> <%= (error6.length > 0) ? error6 : '' %> </span>
-                    </form>
-                </div>
-            </div><!-- form-group -->
-            <label for="room" style="padding-top: 80px;">Create a new room</label>
-            <form class="form-signin" action='create' method="POST">
-                <input type="text" name="token2" value="" class="form-control" placeholder="New room name"
-                       style="width:100%" autofocus required>
-                <button class="btn  btn-primary btn-block" type="submit">Create</button>
-                <span class="error text-danger"> <%= (error5.length > 0) ? error5 : '' %> </span>
-            </form>
+            <div class="panel panel-default" style="padding: 20px;">
+                <h2 class="home-title"><strong>Dashboard</strong></h2>
+                <div class="form-horizontal">
+                    <label for="room" style="padding-top: 60px;">Join an existing room</label>
+                    <div class="form-inline">
+                        <form class="form-signin" action='joinroom' method="POST">
+                            <input type="text" name="token" value="" class="form-control" placeholder="Existing room name"
+                                   style="width:100%" autofocus required>
+                            <button class="btn btn-primary btn-block" type="submit">Join</button>
+                            <span class="error text-danger"> <%= (error6.length > 0) ? error6 : '' %> </span>
+                        </form>
+                    </div>
+                </div><!-- form-group -->
+                <label for="room" style="padding-top: 80px;">Create a new room</label>
+                <form class="form-signin" action='create' method="POST">
+                    <input type="text" name="token2" value="" class="form-control" placeholder="New room name"
+                           style="width:100%" autofocus required>
+                    <button class="btn  btn-primary btn-block" type="submit">Create</button>
+                    <span class="error text-danger"> <%= (error5.length > 0) ? error5 : '' %> </span>
+                </form>
 
-            <div class="text-center" style="padding-top: 80px;">
-                <div class="btn-group" role="group">
-                    <form class="" action='logout' method="POST">
-                        <button class="btn btn-primary btn-block">Log out</button>
-                    </form>
+                <div class="text-center" style="padding-top: 80px;">
+                    <div class="btn-group" role="group">
+                        <form class="" action='logout' method="POST">
+                            <button class="btn btn-primary btn-block">Log out</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
         </div><!-- col-md-4 -->
     </div><!-- row -->
 </div>
