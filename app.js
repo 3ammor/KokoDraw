@@ -82,14 +82,12 @@ var double_p = require('./routes/double_p.js');
 var draw = require('./routes/draw.js');
 
 io.sockets.on('connection', function (socket) {
-    console.log('tezy');
     socket.on('disconnect', function () {
         console.log("disconnecting");
     });
 
 
     socket.on('path_request', function (room, id, point, color) {
-        console.log('es7a ya mo2men');
         io.in(room).emit('path_request_u', id, point, color);
         draw.draw(room, point, id, color);
     });
@@ -107,18 +105,17 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('rect', function (room, id, pos, size, color) {
         io.in(room).emit('rect_u', pos, size, color);
-        draw.draw_rect(room, pos, size, color);
+        draw.draw_rect(id,room, pos, size, color);
     });
     socket.on('circle', function (room, id, pos, size, color) {
         io.in(room).emit('circle_u', pos, size, color);
-        draw.draw_circle(room, pos, size, color);
+        draw.draw_circle(id,room, pos, size, color);
     });
     socket.on('msg', function (room, id, msg) {
         io.in(room).emit('msg_u', id, msg);
     });
     socket.on('join', function (room, id) {
-        console.log("joining");
-        joinn(socket, room, id);
+         joinn(socket, room, id);
     });
 
 
@@ -126,40 +123,41 @@ io.sockets.on('connection', function (socket) {
 
 
 function joinn(socket, room, id) {
-    console.log("joininggggggggggggg");
+    console.log("joining - - - - ");
     socket.join(room);
     paths = double_p.paths;
     projects = double_p.projects;
     var project = double_p.projects[room];
     if (!project) {
 
-        if (!db.checkExistence(room)) {
-            console.log("el project el kos");
-
-            paths = double_p.paths;
-            projects = double_p.projects;
-            paths[room] = {};
-            projects[room] = new paper.Project();
-            console.log(room);
-            db.roomCreateUpdate(id, room, projects[room].exportJSON())
-
-        }
-
-        else {
-            project_json = db.getJSON(room)
-            projects[room] = new paper.Project();
-            projects[room].importJSON(project_json);
-            io.in(room).emit('join:load_page', project_json);
-        }
-
+        var checker = {check: false};
+        db.checkExistence(room, checker, function () {
+            if (checker.check) {
+                var project_json = {json: null};
+                db.getJSON(room, project_json, function () {
+                    paths[room] = {};
+                    projects[room] = new paper.Project();
+                    projects[room].importJSON(project_json.json);
+                    io.in(room).emit('join:load_page', project_json.json);
+                });
+            }
+            else {
+                console.log("the project have been found in database");
+                paths = double_p.paths;
+                projects = double_p.projects;
+                paths[room] = {};
+                projects[room] = new paper.Project();
+                console.log(room);
+                db.roomCreateUpdate(id, room, projects[room].exportJSON());
+            }
+        });
     }
     else {
-        console.log('bitch better have my json');
+        console.log("the project have been found in dict");
         var project_json = projects[room].exportJSON();
         io.in(room).emit('join:load_page', project_json);
 
     }
-    io.in(room).emit('join:end');
-}
+ }
 
 module.exports = app;

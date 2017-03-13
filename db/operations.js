@@ -10,9 +10,8 @@ exports.roomCreateUpdate = function (user_id, token, json) {
             name: token
         }}).then(function (room) {
 
-        if (room != null) {
-                console.log("kosy");
-                room.updateAttributes({data: jsonString}).success(function () {
+        if (room != null && jsonString != "\"[]\"") {
+                 room.updateAttributes({data: jsonString}).success(function () {
                     return 0;
                 });
             }
@@ -43,43 +42,48 @@ exports.roomCreateUpdate = function (user_id, token, json) {
 };
 
 
-exports.checkExistence = function (token) {
-    console.log("a7aaaaaaaaaaa");
+exports.checkExistence = function (token, checker, callback) {
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
-        console.log("oooh yaaaah");
-         if (room != null) {
-            console.log("ah");
-
-            return true;
+        if(room != null) {
+            console.log("checker true");
+            checker.check = true;
+            callback();
+            return;
         }
-        console.log("la");
-        return false;
-
+        checker.check = false;
+        callback();
+        return;
     }).catch(function (err) {
-        console.log("console 3m hosny");
-        return false;
+        checker.check = false;
+        callback();
+        return;
     });
-    console.log("hey apple!");
 };
 
-exports.getJSON = function (token) {
+exports.getJSON = function (token, ret, callback) {
     models.Room.findOne({
         where: {
             name: token
         }
     }).then(function (room) {
         if (room != null) {
-            return JSON.parse(room.data);
+            ret.json = JSON.parse(room.data);
+            callback();
+            return;
         }
-        return null;
+        ret.json = null;
+        callback();
+        return;
     }).catch(function (err) {
-        return null;
+        ret.json = null;
+        callback();
+        return;
     });
-}
+};
 
 exports.getRoomToken=function (roomid) {
     models.Room.findOne({

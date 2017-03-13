@@ -3,10 +3,11 @@
  */
 var double_p = require('./double_p.js');
 var paper = require('paper');
-var db =require("../db/operations")
+var db =require("../db/operations");
 
 
 exports.draw = function (room, point, id, color) {
+    //console.log("log is here: " + room + " " + point + " " + id + " " + color);
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
@@ -37,7 +38,7 @@ exports.draw_end = function (room, id) {
 
 };
 
-exports.draw_rect = function (room, pos, size, color) {
+exports.draw_rect = function (id,room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
@@ -51,7 +52,7 @@ exports.draw_rect = function (room, pos, size, color) {
 
 };
 
-exports.draw_circle = function (room, pos, size, color) {
+exports.draw_circle = function (id,room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
