@@ -47,7 +47,6 @@ module.exports = function (app, passport) {
                     console.log("join not ok");
                     req.flash('error6', 'Room doesn\'t exist.');
                     res.redirect('/join');
-                    return;
                 }
                 else {
                     console.log("join ok");
@@ -60,19 +59,31 @@ module.exports = function (app, passport) {
     });
 
     // LOGOUT ==============================
+
+    //When create
     app.post('/rooms/logout', isLoggedIn, function (req, res) {
         req.logout();
         req.session['token'] = null;
         res.redirect('/');
     });
 
+    //When join
     app.post('/logout', isLoggedIn, function (req, res) {
         req.logout();
         req.session['token'] = null;
         res.redirect('/');
     });
 
+    //When join
     app.post('/leaveroom', isLoggedIn, function (req, res) {
+        console.log("------------------> hey" + req.session['token']);
+        operations.leaveRoom(req.user.id, req.session['token'], function () {
+            res.redirect('/join');
+        });
+    });
+
+    //When create
+    app.post('/rooms/leaveroom', isLoggedIn, function (req, res) {
         console.log("------------------> hey" + req.session['token']);
         operations.leaveRoom(req.user.id, req.session['token'], function () {
             res.redirect('/join');

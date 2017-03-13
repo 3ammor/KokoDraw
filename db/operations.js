@@ -27,7 +27,7 @@ exports.roomCreateUpdate = function (user_id, token, json) {
                         id: user_id
                     }
                 }).then(function (user) {
-                    room.addUser(user);
+                    user.addRoom(room);
                     return 0;
                 }).catch(function (err) {
                     return -1;
