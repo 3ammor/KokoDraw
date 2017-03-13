@@ -45,11 +45,11 @@
                 <!--Widget footer-->
                 <div class="panel-footer" style="background-color: #4D394B;">
                     <div class="row">
-                        <div class="col-xs-9">
+                        <div class="col-xs-8">
                             <input id='input' type="text" placeholder="Enter your message" class="form-control chat-input">
                         </div>
                         <div class="col-xs-3">
-                            <button class="btn btn-default" type="submit" onclick="sendMessage()">Send</button>
+                            <button class="btn btn-sm btn-default" type="submit" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 <br>
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shapes <span class="caret"></span></button>
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shapes <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li>
                             <button type="button" class="" onclick="changeMyTool('Path')"><i class="fa-paint-brush"></i> Path</button>
@@ -74,7 +74,7 @@
                     </ul>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Colors <span class="caret"></span></button>
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Colors <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li>
                             <button type="button" class="" onclick="changeColor(0, 0, 0)">BLACK</button>
@@ -100,21 +100,21 @@
                     </ul>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" onclick="changeColor(1, 1, 1)"><i class="fa-eraser"></i> Eraser</button>
+                    <button type="button" class="btn btn-sm btn-default" onclick="changeColor(1, 1, 1)"><i class="fa-eraser"></i> Eraser</button>
                 </div>
                 <div class="btn-group" role="group">
                     <form class="form-signin" action='export' method="POST">
-                        <button class="btn btn-default" type="submit">Export to Image</button>
+                        <button class="btn btn-sm btn-default" type="submit">Export to Image</button>
                     </form>
                 </div>
                 <div class="btn-group" role="group">
                     <form class="" action='leaveroom' method="POST" role="form">
-                        <button class="btn btn-default" type="submit">Leave Room</button>
+                        <button class="btn btn-sm btn-default" type="submit">Leave Room</button>
                     </form>
                 </div>
                 <div class="btn-group" role="group">
                     <form class="" action='logout' method="POST" role="form">
-                        <button class="btn btn-default" type="submit">Log out</button>
+                        <button class="btn btn-sm btn-default" type="submit">Log out</button>
                     </form>
                 </div>
             </div>

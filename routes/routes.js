@@ -34,9 +34,8 @@ module.exports = function (app, passport) {
     });
 
     app.post('/selectroom', isLoggedIn, function (req, res) {
-        operations.getUsername(req.user.id, function (username) {
-            res.render('room', {userid: req.user.id, username: username, token: req.body.btn});
-        });
+        req.session['token'] = req.body.btn;
+        res.redirect('/rooms');
     });
 
     app.post('/joinroom', isLoggedIn, function (req, res) {
