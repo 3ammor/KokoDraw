@@ -21,7 +21,7 @@ module.exports = function (app, passport) {
     // PROFILE SECTION =========================
     app.get('/join', isLoggedIn, function (req, res) {
         operations.getRoomsForUser(req.user.id, function (rooms) {
-                res.render('join', {rooms: rooms, error5: req.flash('error5')});
+                res.render('join', {rooms: rooms, error5: req.flash('error5'), error6: req.flash('error6')});
         });
     });
 
@@ -34,7 +34,18 @@ module.exports = function (app, passport) {
     app.post('/joinroom', isLoggedIn, function (req, res) {
         if (req.body.token != null) {
             req.session['token'] = req.body.token;
-            res.redirect('/rooms');
+            operations.checkExistence(req.body.token, function (checker) {
+                if (!checker) {
+                    console.log("join not ok");
+                    req.flash('error6', 'Room doesn\'t exist.');
+                    res.redirect('/join');
+                    return;
+                }
+                else {
+                    console.log("join ok");
+                    res.redirect('/rooms');
+                }
+            });
         }
     });
 
@@ -52,6 +63,10 @@ module.exports = function (app, passport) {
     });
 
     app.post('/rooms/leaveroom', isLoggedIn, function (req, res) {
+        
+    });
+
+    app.post('/export', isLoggedIn, function (req, res) {
 
     });
 

@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="username">Username </label>
                         <input type="text" name="username" value="" class="form-control"
-                               placeholder="Enter the username here.." autofocus required>
+                                autofocus required>
                         <span class="error text-danger"> <%= (error4.length > 0) ? error4 : '' %> </span>
                         <div class="help-block with-errors"></div>
                     </div><!-- form-group -->
@@ -48,11 +48,11 @@
                     <div class="form-group">
                         <label for="password">Password </label>
                         <input type="password" name="password" value="" class="form-control"
-                               placeholder="Enter the password here.." required>
+                                required>
                         <div class="help-block with-errors"></div>
                     </div><!-- form-group -->
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <button class="btn btn-primary btn-block" type="submit">Sign in</button>
 
                 </form>
 
@@ -67,14 +67,13 @@
                         <label for="username">Username</label>
                         <input type="text" name="username" pattern="^['_A-z0-9]{1,}$" value=""
                                class="form-control"
-                               placeholder="Enter your username to login with.." autofocus required>
+                                autofocus required>
                         <span class="error text-danger"> <%= (error1.length > 0) ? error1 : '' %> </span>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" name="email" value="" class="form-control"
-                               placeholder="email@email.com"
                                required>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -82,7 +81,7 @@
                         <label for="password">Password </label>
                         <input type="password" name="password" id="inputPassword" minlength="8"
                                class="form-control"
-                               placeholder="Enter the password here.." required>
+                               required>
                         <span class="error text-danger"> <%= (error2.length > 0) ? error2 : '' %> </span>
                         <div class="help-block with-errors"></div>
 
@@ -92,11 +91,11 @@
                         <input type="password" name="confirm_password" id="inputPasswordConfirm"
                                data-match="#inputPassword" data-match-error="Whoops, these don't match"
                                minlength="8"
-                               class="form-control" placeholder="Renter your password here.." required>
+                               class="form-control"  required>
                         <div class="help-block with-errors"></div>
                     </div><!-- form-group -->
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                    <button class="btn btn-primary btn-block" type="submit">Sign up</button>
 
                 </form>
             </div>
