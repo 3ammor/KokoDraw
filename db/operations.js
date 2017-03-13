@@ -11,8 +11,7 @@ exports.roomCreateUpdate = function (user_id, token, json) {
         }}).then(function (room) {
 
         if (room != null && jsonString != "\"[]\"") {
-                console.log("kosy");
-                room.updateAttributes({data: jsonString}).success(function () {
+                 room.updateAttributes({data: jsonString}).success(function () {
                     return 0;
                 });
             }
