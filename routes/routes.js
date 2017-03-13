@@ -45,7 +45,11 @@ module.exports = function (app, passport) {
     // Room =====================================
     app.get('/rooms', isLoggedIn, function (req, res) {
         if (req.session['token'] != null)
-            res.render('room', {userid: req.user.id, token: req.session['token']});
+        {
+            db.getUsername(req.user.id, function (username) {
+                res.render('room', {userid: req.user.id, username: username, token: req.session['token']});
+            });
+        }
         else res.redirect('/join');
     });
 
