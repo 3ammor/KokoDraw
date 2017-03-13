@@ -13,7 +13,8 @@ module.exports = function (app, passport) {
             error1: req.flash('error1'),
             error2: req.flash('error2'),
             error3: req.flash('error3'),
-            error4: req.flash('error4')
+            error4: req.flash('error4'),
+            signup_success: req.flash('signup_success')
         });
     });
 
@@ -96,7 +97,8 @@ module.exports = function (app, passport) {
             email: xemail,
             password: opassword
         }).then(function (result) {
-            res.json(result);
+            req.flash('signup_success', 'Account created successfully. You can sign in now.');
+            res.redirect('/');
         }).catch(function (err) {
             req.flash('error1', 'Username or Email already exists.');
             res.redirect('/');

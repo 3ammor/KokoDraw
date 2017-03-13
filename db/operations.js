@@ -108,5 +108,17 @@ exports.getUsername = function (userid, callback) {
 };
 
 exports.getRoomsForUser = function (userid) {
-
+    models.User.findOne({
+        where: {
+            id: userid
+        }
+    }).then(function (user) {
+        if (user != null) {
+            console.log(user.name);
+            return callback(user.name);
+        }
+        return callback(null);
+    }).catch(function (err) {
+        return callback(null);
+    });
 };
