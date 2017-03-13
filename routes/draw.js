@@ -38,7 +38,7 @@ exports.draw_end = function (room, id) {
 
 };
 
-exports.draw_rect = function (room, pos, size, color) {
+exports.draw_rect = function (id,room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();
@@ -52,7 +52,7 @@ exports.draw_rect = function (room, pos, size, color) {
 
 };
 
-exports.draw_circle = function (room, pos, size, color) {
+exports.draw_circle = function (id,room, pos, size, color) {
     paths = double_p.paths;
     projects = double_p.projects;
     projects[room].activate();

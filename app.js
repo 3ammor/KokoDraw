@@ -107,11 +107,11 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('rect', function (room, id, pos, size, color) {
         io.in(room).emit('rect_u', pos, size, color);
-        draw.draw_rect(room, pos, size, color);
+        draw.draw_rect(id,room, pos, size, color);
     });
     socket.on('circle', function (room, id, pos, size, color) {
         io.in(room).emit('circle_u', pos, size, color);
-        draw.draw_circle(room, pos, size, color);
+        draw.draw_circle(id,room, pos, size, color);
     });
     socket.on('msg', function (room, id, msg) {
         io.in(room).emit('msg_u', id, msg);
