@@ -205,3 +205,6 @@ function sendMessage() {
     msg.value = "";
 }
 
+function screenshot() {
+    paper.project.exportSVG()
+}
