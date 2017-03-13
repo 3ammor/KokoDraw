@@ -115,8 +115,7 @@ io.sockets.on('connection', function (socket) {
         io.in(room).emit('msg_u', id, msg);
     });
     socket.on('join', function (room, id) {
-        console.log("joining");
-        joinn(socket, room, id);
+         joinn(socket, room, id);
     });
 
 
