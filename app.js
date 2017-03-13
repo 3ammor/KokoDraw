@@ -137,19 +137,25 @@ function joinn(socket, room, id) {
         db.checkExistence(room, checker, function() {
 
             if(checker) {
+                paths[room] = {};
+
                 console.log("el project el kos");
                 paths = double_p.paths;
                 projects = double_p.projects;
-                paths[room] = {};
                 projects[room] = new paper.Project();
                 console.log(room);
                 db.roomCreateUpdate(id, room, projects[room].exportJSON());
             }
 
             else {
+                paths[room] = {};
+
                 project_json = db.getJSON(room)
                 projects[room] = new paper.Project();
                 projects[room].importJSON(project_json);
+                a=projects[room].exportJSON()
+                console.log("-----------------------------------------------")
+                console.log(a)
                 io.in(room).emit('join:load_page', project_json);
             }
         });
