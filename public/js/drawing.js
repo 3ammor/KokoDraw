@@ -1,3 +1,5 @@
+// var svg_to_png = require('svg-to-png');
+
 paper.install(window);
 var myColor = new Color(0, 0, 0);
 var myTool = "Path";
@@ -206,5 +208,14 @@ function sendMessage() {
 }
 
 function screenshot() {
-    paper.project.exportSVG()
+
+    var canvas = document.getElementById("myCanvas");
+    var img    = canvas.toDataURL("image/png");
+
+    // document.write('<img src="'+img+'"/>');
+    var download = document.createElement('a');
+    download.href = img;
+    download.download = "myImage.png";
+    document.body.appendChild(download);
+    download.click();
 }
