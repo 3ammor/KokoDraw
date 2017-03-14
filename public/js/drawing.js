@@ -210,12 +210,12 @@ function sendMessage() {
 function screenshot() {
 
     var canvas = document.getElementById("myCanvas");
-    var img    = canvas.toDataURL("image/png");
-
-    // document.write('<img src="'+img+'"/>');
+    // var img    = canvas.toDataURL("jpg");
+    var img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+    // window.location.href = img;
     var download = document.createElement('a');
     download.href = img;
-    download.download = "myImage.png";
-    document.body.appendChild(download);
+    download.download = "myImage.jpg";
+    // document.body.appendChild(download);
     download.click();
 }
