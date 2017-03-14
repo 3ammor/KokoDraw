@@ -210,12 +210,29 @@ function sendMessage() {
 function screenshot() {
 
     var canvas = document.getElementById("myCanvas");
+
+    var fileName = 'tezy.png';
+
+    if ('msToBlob' in canvas) { // IE10+
+        var blob = canvas.msToBlob();
+        navigator.msSaveBlob(blob, fileName);
+    } else {
+        var a = document.createElement('a');
+        a.setAttribute('href', canvas.toDataURL().replace("image/png", "image/octet-stream"));
+        a.setAttribute('target', '_blank');
+        a.setAttribute('download', fileName);
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
     // var img    = canvas.toDataURL("jpg");
-    var img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-    // window.location.href = img;
-    var download = document.createElement('a');
-    download.href = img;
-    download.download = "myImage.jpg";
-    // document.body.appendChild(download);
-    download.click();
+    // var img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+    // // window.location.href = img;
+    // var download = document.createElement('a');
+    // download.href = img;
+    // download.download = "myImage.jpg";
+    // // document.body.appendChild(download);
+    // download.click();
 }
